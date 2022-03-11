@@ -10,7 +10,7 @@ namespace Doma
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new ClientTabbedPage();
         }
 
         protected override void OnStart()

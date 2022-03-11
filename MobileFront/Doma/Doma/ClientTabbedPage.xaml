@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Doma.ClientTabbedPage"
+             xmlns:local="clr-namespace:Doma"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            
+            BarBackgroundColor="#9553e2"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+            android:TabbedPage.BarItemColor="White">
+
+    <!--android:TabbedPage.BarSelectedItemColor="Red"-->
+    
+    <TabbedPage.Children>
+        <local:SearchPage Title="Поиск" />
+        <local:FaivoritesPage Title="Избранное" />
+        <local:ClientBookingList Title="Поездки" />
+        <local:Support Title="Чат" />
+        <local:ClientProfile Title="Аккаунт" />
+    </TabbedPage.Children>
+</TabbedPage>

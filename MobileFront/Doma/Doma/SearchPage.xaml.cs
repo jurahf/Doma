@@ -8,9 +8,9 @@ using Xamarin.Forms;
 
 namespace Doma
 {
-    public partial class MainPage : ContentPage
+    public partial class SearchPage : ContentPage
     {
-        public MainPage()
+        public SearchPage()
         {
             InitializeComponent();
         }
