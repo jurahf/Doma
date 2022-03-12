@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Doma.RemoteServices.ServiceDeclarations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,18 @@ namespace Doma
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ClientTabbedPage : TabbedPage
     {
-        public ClientTabbedPage()
+        public ClientTabbedPage(IServiceProvider serviceProvider)
         {
             InitializeComponent();
+
+            Children.Add(new SearchPage(
+                serviceProvider.GetService<IBookingRemoteService>(), 
+                serviceProvider.GetService<ICommodityRemoteService>()));
+
+            Children.Add(new FaivoritesPage());
+            Children.Add(new ClientBookingList());
+            Children.Add(new Support());
+            Children.Add(new ClientProfile());
         }
     }
 }

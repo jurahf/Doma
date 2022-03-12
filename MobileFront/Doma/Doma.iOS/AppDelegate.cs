@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Microsoft.Extensions.DependencyInjection;
 using UIKit;
 
 namespace Doma.iOS
@@ -23,9 +24,18 @@ namespace Doma.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+
+            ServiceCollection services = new ServiceCollection();
+            ConfigureServicesIos(services);
+
+            LoadApplication(new App(services));
 
             return base.FinishedLaunching(app, options);
+        }
+
+        private void ConfigureServicesIos(ServiceCollection services)
+        {
+
         }
     }
 }

@@ -5,17 +5,18 @@
              xmlns:local="clr-namespace:Doma"
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             
-            BarBackgroundColor="#9553e2"
+            BarBackgroundColor="white"
             android:TabbedPage.ToolbarPlacement="Bottom"
-            android:TabbedPage.BarItemColor="White">
+            android:TabbedPage.BarItemColor="#717171"
+            android:TabbedPage.BarSelectedItemColor="#9B55E3">
 
     <!--android:TabbedPage.BarSelectedItemColor="Red"-->
-    
-    <TabbedPage.Children>
-        <local:SearchPage Title="Поиск" />
-        <local:FaivoritesPage Title="Избранное" />
-        <local:ClientBookingList Title="Поездки" />
-        <local:Support Title="Чат" />
-        <local:ClientProfile Title="Аккаунт" />
-    </TabbedPage.Children>
+
+    <TabbedPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#D855E3" Offset="0.1" />
+            <GradientStop Color="#9B55E3" Offset="1.0" />
+        </LinearGradientBrush>
+    </TabbedPage.Background>
+
 </TabbedPage>

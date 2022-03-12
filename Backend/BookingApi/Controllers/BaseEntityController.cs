@@ -10,7 +10,6 @@ namespace BookingApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class BaseEntityController<T> : ControllerBase
         where T : IViewModel
     {

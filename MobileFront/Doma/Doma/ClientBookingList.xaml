@@ -1,10 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Doma.ClientBookingList">
+             x:Class="Doma.ClientBookingList"
+             Title="Поездки"
+             IconImageSource="trips.png">
 
     <StackLayout>
-        <Frame BackgroundColor="#9553e2" Padding="24" CornerRadius="0">
+        <Frame BackgroundColor="Transparent" Padding="24" CornerRadius="0">
             <Label Text="Мои бронирования" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
         </Frame>
     </StackLayout>
