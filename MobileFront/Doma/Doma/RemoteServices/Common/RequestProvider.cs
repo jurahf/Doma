@@ -16,12 +16,12 @@ namespace Doma.RemoteServices.Common
             try
             {
                 HttpClient httpClient = CreateHttpClient(token);
-                response = httpClient.GetAsync("https://google.com").Result;
                 
-                response = httpClient.GetAsync(uri).Result;
+                response = await httpClient.GetAsync(uri);
             }
             catch (Exception ex)
             {
+                // TODO: Log
                 throw;
             }
 
@@ -30,13 +30,77 @@ namespace Doma.RemoteServices.Common
 
             string serialized = await response.Content.ReadAsStringAsync();
 
-            TResult result = await Task.Run(() =>
-                JsonConvert.DeserializeObject<TResult>(serialized));
+            TResult result = await Task.Run(() => JsonConvert.DeserializeObject<TResult>(serialized));
 
             return result;
         }
 
-        private HttpClient CreateHttpClient(string token = "")
+        public async Task<TResult> PostAsync<TResult>(string uri, object data, string token = "")
+        {
+            HttpResponseMessage response;
+            try
+            {
+                HttpClient httpClient = CreateHttpClient(token);
+                HttpContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+
+                response = await httpClient.PostAsync(uri, content);
+            }
+            catch (Exception ex)
+            {
+                // TODO: Log
+                throw;
+            }
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception($"Код ответа говорит о неудачном выполнении запроса: {(int)response.StatusCode}"); // TODO: typed exception
+
+            string serialized = await response.Content.ReadAsStringAsync();
+
+            TResult result = await Task.Run(() => JsonConvert.DeserializeObject<TResult>(serialized));
+
+            return result;
+        }
+
+        public async Task PutAsync<TResult>(string uri, object data, string token = "")
+        {
+            HttpResponseMessage response;
+            try
+            {
+                HttpClient httpClient = CreateHttpClient(token);
+                HttpContent content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+
+                response = await httpClient.PutAsync(uri, content);
+            }
+            catch (Exception ex)
+            {
+                // TODO: Log
+                throw;
+            }
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception($"Код ответа говорит о неудачном выполнении запроса: {(int)response.StatusCode}"); // TODO: typed exception
+        }
+
+        public async Task DeleteAsync(string uri, string token = "")
+        {
+            HttpResponseMessage response;
+            try
+            {
+                HttpClient httpClient = CreateHttpClient(token);
+
+                response = await httpClient.DeleteAsync(uri);
+            }
+            catch (Exception ex)
+            {
+                // TODO: Log
+                throw;
+            }
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception($"Код ответа говорит о неудачном выполнении запроса: {(int)response.StatusCode}"); // TODO: typed exception
+        }
+
+        private HttpClient CreateHttpClient(string token)
         {
             var httpClient = new HttpClient();
             //httpClient.BaseAddress = new Uri(backendUri);

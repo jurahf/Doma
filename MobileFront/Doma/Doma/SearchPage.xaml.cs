@@ -27,8 +27,7 @@ namespace Doma
 
         private async Task LoadData()
         {
-            List<CommodityViewModel> commodities = await commoditySrvice.GetPageAsync();
-            List<BookingViewModel> bookings = await bookingService.GetPageAsync();
+            List<BookingViewModel> bookings = await bookingService.GetPage();
         }
 
         private void btnRefresh_Clicked(object sender, EventArgs e)

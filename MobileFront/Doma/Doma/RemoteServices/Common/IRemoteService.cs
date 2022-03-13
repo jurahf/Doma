@@ -8,6 +8,16 @@ namespace Doma.RemoteServices.Common
 {
     public interface IRemoteService<T> where T : IViewModel
     {
-        Task<List<T>> GetPageAsync(int page = 0, int limit = 100);
+        Task<int> GetCount();
+
+        Task<List<T>> GetPage(int page = 0, int limit = 100);
+
+        Task<T> Get(int id);
+
+        Task<int> Add(T value);
+
+        Task Update(int id, T value);
+
+        Task Delete(int id);
     }
 }
