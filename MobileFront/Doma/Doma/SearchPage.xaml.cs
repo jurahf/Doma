@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,13 @@ namespace Doma
         private readonly ICommodityRemoteService commoditySrvice;
         private readonly ICityRemoteService cityService;
 
+        private CityViewModel selectedCity = null;
+        private List<CityViewModel> cityAutocompleteData = new List<CityViewModel>();
+        private DateTime? startDate;
+        private DateTime? endDate;
+        private int adultsCount;
+        private int childrenCount;
+
         public SearchPage(
             IBookingRemoteService bookingService, 
             ICommodityRemoteService commoditySrvice,
@@ -29,7 +37,8 @@ namespace Doma
 
             InitializeComponent();
 
-            dtpStartDate.MinimumDate = DateTime.Now;
+            cldDates.Culture = CultureInfo.GetCultureInfo("ru-RU");
+            cldDates.MinimumDate = DateTime.Today;
 
             LoadData();
         }
@@ -37,20 +46,29 @@ namespace Doma
 
         #region city autocomplete
 
-        private CityViewModel selectedCity = null;
-        private List<CityViewModel> cityAutocompleteData = new List<CityViewModel>();
-
         private void City_OnTextChanged(object sender, TextChangedEventArgs e)
         {
+            RefreshCitySuggestion(e.NewTextValue);
+        }
+
+        private void RefreshCitySuggestion(string newTextValue)
+        {
+            if (string.IsNullOrWhiteSpace(newTextValue))
+            {
+                cityListView.IsVisible = false;
+                selectedCity = null;
+                return;
+            }
+
             cityListView.IsVisible = true;
             cityListView.BeginRefresh();
 
-            string text = e.NewTextValue.ToLower();
+            string text = newTextValue.ToLower();
             var data = cityAutocompleteData
                 .Where(i => i.Name.ToLower()
                     .Contains(text));
 
-            if (string.IsNullOrWhiteSpace(e.NewTextValue) || !data.Any())
+            if (!data.Any())
             {
                 cityListView.IsVisible = false;
                 selectedCity = null;
@@ -72,15 +90,79 @@ namespace Doma
             ((ListView)sender).SelectedItem = null;
 
             CollapseFrame(frmCity, inCityFrameLayout);
+            btnCityUnexpand.IsVisible = false;
+            tbCityName.HorizontalTextAlignment = TextAlignment.Center;
         }
 
         #endregion
+
+
+        public DateTime? SelectedStartDate
+        {
+            get
+            {
+                return startDate;
+            }
+            set
+            {
+                startDate = value;
+                tbDates.Text = $"С {startDate:dd.MM.yyyy} по {endDate:dd.MM.yyyy}";
+                OnPropertyChanged(nameof(SelectedStartDate));
+            }
+        }
+
+        public DateTime? SelectedEndDate
+        {
+            get
+            {
+                return endDate;
+            }
+            set
+            {
+                endDate = value;
+                tbDates.Text = $"С {startDate:dd.MM.yyyy} по {endDate:dd.MM.yyyy}";
+                OnPropertyChanged(nameof(SelectedEndDate));
+            }
+        }
+
+        public int AdultsCount
+        {
+            get
+            {
+                return adultsCount;
+            }
+            set
+            {
+                adultsCount = value;
+                tbPersons.Text = $"{adultsCount} взрослых, {childrenCount} детей";
+                OnPropertyChanged(nameof(AdultsCount));
+            }
+        }
+
+        public int ChildrenCount
+        {
+            get
+            {
+                return childrenCount;
+            }
+            set
+            {
+                childrenCount = value;
+                tbPersons.Text = $"{adultsCount} взрослых, {childrenCount} детей";
+                OnPropertyChanged(nameof(ChildrenCount));
+            }
+        }
+
 
 
         private async Task LoadData()
         {
             try
             {
+                SelectedStartDate = DateTime.Now;
+                SelectedEndDate = DateTime.Now.AddDays(1);
+                AdultsCount = 1;
+
                 cityAutocompleteData = await cityService.GetPage(0, 1000);
                 //List<BookingViewModel> bookings = await bookingService.GetPage();
             }
@@ -90,16 +172,12 @@ namespace Doma
             }
         }
 
-        private void btnRefresh_Clicked(object sender, EventArgs e)
-        {
-            LoadData();
-        }
-
         private void tbCityName_Focused(object sender, FocusEventArgs e)
         {
             ExpandFrame(frmCity, inCityFrameLayout);
             btnCityUnexpand.IsVisible = true;
             tbCityName.HorizontalTextAlignment = TextAlignment.Start;
+            RefreshCitySuggestion(tbCityName.Text);
         }
 
         private void btnCityUnexpand_Clicked(object sender, EventArgs e)
@@ -108,6 +186,39 @@ namespace Doma
             btnCityUnexpand.IsVisible = false;
             tbCityName.HorizontalTextAlignment = TextAlignment.Center;
         }
+
+        private void tbDatesName_Focused(object sender, FocusEventArgs e)
+        {
+            ExpandFrame(frmDates, inDatesFrameLayout);
+            btnDatesUnexpand.IsVisible = true;
+            tbDates.IsReadOnly = true;
+            tbDates.HorizontalOptions = LayoutOptions.StartAndExpand;
+        }
+
+        private void btnDatesUnexpand_Clicked(object sender, EventArgs e)
+        {
+            CollapseFrame(frmDates, inDatesFrameLayout);
+            btnDatesUnexpand.IsVisible = false;
+            tbDates.IsReadOnly = false;
+            tbDates.HorizontalOptions = LayoutOptions.CenterAndExpand;
+        }
+
+        private void tbPersonsName_Focused(object sender, FocusEventArgs e)
+        {
+            ExpandFrame(frmPersons, inPersonsFrameLayout);
+            btnPersonsUnexpand.IsVisible = true;
+            tbPersons.IsReadOnly = true;
+            tbPersons.HorizontalOptions = LayoutOptions.StartAndExpand;
+        }
+
+        private void btnPersonsUnexpand_Clicked(object sender, EventArgs e)
+        {
+            CollapseFrame(frmPersons, inPersonsFrameLayout);
+            btnPersonsUnexpand.IsVisible = false;
+            tbPersons.IsReadOnly = false;
+            tbPersons.HorizontalOptions = LayoutOptions.CenterAndExpand;
+        }
+
 
         private void ExpandFrame(Frame frame, Layout layout)
         {

@@ -1,14 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Xamarin.Plugin.Calendar.Controls;assembly=Xamarin.Plugin.Calendar"
+             xmlns:userControls="clr-namespace:Doma.UserControls"
              x:Class="Doma.SearchPage" 
+             x:Name="SearchPageInstance"
              Title="Поиск"
              IconImageSource="search.png">
 
     <StackLayout>
         
         <!-- город -->
-        <Frame x:Name="frmCity" BackgroundColor="White" Margin="20" Padding="0" CornerRadius="100" HeightRequest="48">
+        <Frame x:Name="frmCity" BackgroundColor="White" Margin="20" Padding="0" CornerRadius="100" HeightRequest="48" HorizontalOptions="FillAndExpand">
             <StackLayout x:Name="inCityFrameLayout" Margin="5" HorizontalOptions="Center" VerticalOptions="Center">
                 <StackLayout Orientation="Horizontal">
                     <Button 
@@ -50,10 +53,101 @@
             </StackLayout>
         </Frame>
 
-        <DatePicker x:Name="dtpStartDate" Format="dd.MM.yyyy" TextColor="White">
-        </DatePicker>
         
-        
+        <!-- Даты -->
+        <Frame x:Name="frmDates" BackgroundColor="White" Margin="20" Padding="0" CornerRadius="100" HeightRequest="48" HorizontalOptions="FillAndExpand">
+            <StackLayout x:Name="inDatesFrameLayout" Margin="5" HorizontalOptions="Center" VerticalOptions="Center"
+                         BindingContext="{Binding Source={x:Reference SearchPageInstance}}">
+                <StackLayout Orientation="Horizontal">
+                    <Button 
+                        x:Name="btnDatesUnexpand" 
+                        Text="&lt;" 
+                        IsVisible="false" 
+                        Clicked="btnDatesUnexpand_Clicked" 
+                        BackgroundColor="Transparent"></Button>
+
+                    <Entry 
+                        x:Name="tbDates" 
+                        FontSize="14" 
+                        HorizontalOptions="CenterAndExpand"
+                        HorizontalTextAlignment="Center"
+                        Focused="tbDatesName_Focused"
+                        Placeholder="Даты поездки"></Entry>
+                </StackLayout>
+
+                <controls:RangeSelectionCalendar
+                    x:Name="cldDates"
+                    Margin="20, 0, 20, 0"
+                    VerticalOptions="FillAndExpand"
+                    HorizontalOptions="FillAndExpand"
+                    SelectedEndDate="{Binding SelectedEndDate, Mode=TwoWay}"
+                    SelectedStartDate="{Binding SelectedStartDate, Mode=TwoWay}"
+                    SelectedDateColor="white"
+                    SelectedDayBackgroundColor="black">
+                    <controls:Calendar.FooterSectionTemplate>
+                        <DataTemplate>
+                            <Label Text=""></Label>
+                        </DataTemplate>
+                    </controls:Calendar.FooterSectionTemplate>
+                </controls:RangeSelectionCalendar>
+
+                <Button Text="Готово" Margin="0, 0, 20, 0" TextColor="White" BackgroundColor="black" HorizontalOptions="End" Clicked="btnDatesUnexpand_Clicked"></Button>
+                
+            </StackLayout>
+        </Frame>
+       
+        <!-- Кто приедет -->
+        <Frame x:Name="frmPersons" BackgroundColor="White" Margin="20" Padding="0" CornerRadius="100" HeightRequest="48" HorizontalOptions="FillAndExpand">
+            <StackLayout x:Name="inPersonsFrameLayout" Margin="5" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="20, 0, 20, 0"
+                         BindingContext="{Binding Source={x:Reference SearchPageInstance}}">
+                <StackLayout Orientation="Horizontal">
+                    <Button 
+                        x:Name="btnPersonsUnexpand" 
+                        Text="&lt;" 
+                        IsVisible="false" 
+                        Clicked="btnPersonsUnexpand_Clicked" 
+                        BackgroundColor="Transparent"></Button>
+
+                    <Entry 
+                        x:Name="tbPersons" 
+                        FontSize="14" 
+                        HorizontalOptions="CenterAndExpand"
+                        HorizontalTextAlignment="Center"
+                        Focused="tbPersonsName_Focused"
+                        Placeholder="Кто приедет?"></Entry>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <StackLayout>
+                        <Label HorizontalOptions="CenterAndExpand" Text="{Binding AdultsCount, StringFormat='{0} взрослых'}" FontSize="18" TextColor="black" ></Label>
+                        <Label Text="Старше 12 лет" FontSize="14" TextColor="Gray"></Label>                        
+                    </StackLayout>
+                    <Stepper HorizontalOptions="End" x:Name="stAdultCount" Minimum="1" Maximum="99" Value="{Binding AdultsCount, Mode=TwoWay}"></Stepper>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Margin="0, 20, 0, 0" HorizontalOptions="FillAndExpand">
+                    <StackLayout>
+                        <Label HorizontalOptions="CenterAndExpand" Text="{Binding ChildrenCount, StringFormat='{0} детей'}" FontSize="18" TextColor="black" ></Label>
+                        <Label Text="До 12 лет" FontSize="14" TextColor="Gray"></Label>
+                    </StackLayout>
+                    
+                    <!--<userControls:CustomStepper HorizontalOptions="End" x:Name="stChildrenCount" Text="{Binding ChildrenCount, Mode=TwoWay}"></userControls:CustomStepper>-->
+                    <Stepper HorizontalOptions="End" x:Name="stChildrenCount" Minimum="0" Maximum="99" Value="{Binding ChildrenCount, Mode=TwoWay}"></Stepper>
+                </StackLayout>
+
+                <Button Text="Готово" Margin="0, 20, 0, 0" TextColor="White" BackgroundColor="black" HorizontalOptions="End" Clicked="btnPersonsUnexpand_Clicked"></Button>
+
+            </StackLayout>
+        </Frame>
+
+        <Button x:Name="btnSearch" 
+                CornerRadius="100"
+                Text="Подобрать варианты"
+                Margin="20" Padding="0"
+                HeightRequest="48" 
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="#d0365f"
+                TextColor="white"></Button>
 
     </StackLayout>
 
