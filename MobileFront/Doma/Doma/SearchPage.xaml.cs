@@ -27,7 +27,14 @@ namespace Doma
 
         private async Task LoadData()
         {
-            List<BookingViewModel> bookings = await bookingService.GetPage();
+            try
+            {
+                List<BookingViewModel> bookings = await bookingService.GetPage();
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Ошибка", "Ошибка при загрузке данных", "Закрыть");
+            }
         }
 
         private void btnRefresh_Clicked(object sender, EventArgs e)

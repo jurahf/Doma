@@ -14,7 +14,7 @@ Scaffold-DbContext "data source=(local);initial catalog=BookingDatabase;integrat
 Add-Migration CreateCustomSchema -project Repositories
 
 Приминение миграции:	
-Update-Database
+Update-Database -project BookingApi
 
 Накатить/откатить до миграции:
 Update-Database -Migration MigrationName

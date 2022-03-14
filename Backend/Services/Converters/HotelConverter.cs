@@ -35,7 +35,8 @@ namespace Services.Converters
             {
                 Id = viewModel.Id,
                 Address = viewModel.Address,
-                City = viewModel.City,
+                City = new City() { Id = viewModel.City?.Id ?? 0, Name = viewModel.City?.Name },
+                CityId = viewModel.City?.Id ?? 0,
                 Latitude = viewModel.Latitude,
                 Longitude = viewModel.Longitude,
                 Name = viewModel.Name,
@@ -76,7 +77,7 @@ namespace Services.Converters
             {
                 Id = dbModel.Id,
                 Address = dbModel.Address,
-                City = dbModel.City,
+                City = new CityViewModel() { Id = dbModel.City?.Id ?? 0, Name = dbModel.City?.Name },
                 Latitude = dbModel.Latitude,
                 Longitude = dbModel.Longitude,
                 Name = dbModel.Name,

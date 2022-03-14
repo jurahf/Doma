@@ -11,6 +11,8 @@
         </Frame>
 
         <Button x:Name="btnRefresh" Text="Обновить" Clicked="btnRefresh_Clicked" />
+
+
     </StackLayout>
 
 </ContentPage>

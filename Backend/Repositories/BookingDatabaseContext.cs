@@ -13,6 +13,8 @@ namespace Repositories
 
         public DbSet<BookingHotelOption> BookingHotelOptions { get; set; }
 
+        public DbSet<City> Cities { get; set; }
+
         public DbSet<ChatMessage> ChatMessages { get; set; }
 
         public DbSet<Commodity> Commodities { get; set; }
@@ -60,6 +62,7 @@ namespace Repositories
         {
             modelBuilder.ApplyConfiguration<Booking>(new BookingConfiguration());
             modelBuilder.ApplyConfiguration<BookingHotelOption>(new BookingHotelOptionsConfiguration());
+            modelBuilder.ApplyConfiguration<City>(new CityConfiguration());
             modelBuilder.ApplyConfiguration<ChatMessage>(new ChatMessageConfiguration());
             modelBuilder.ApplyConfiguration<Commodity>(new CommodityConfiguration());
             modelBuilder.ApplyConfiguration<Employee>(new EmployeeConfiguration());

@@ -25,13 +25,16 @@ namespace Repositories.EntitiesConfiguration
             builder.Property(x => x.Address)
                 .HasMaxLength(1000);
 
-            builder.Property(x => x.City)
-                .HasMaxLength(255);
+            builder.HasOne(x => x.City)
+                .WithMany(x => x.Hotels)
+                .HasForeignKey(x => x.CityId);
 
             builder.Property(x => x.Latitude)
+                .HasColumnType("decimal(18,10)")
                 .IsRequired();
 
             builder.Property(x => x.Longitude)
+                .HasColumnType("decimal(18,10)")
                 .IsRequired();
 
             builder.Property(x => x.Type)

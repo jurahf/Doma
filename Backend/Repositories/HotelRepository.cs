@@ -28,7 +28,8 @@ namespace Repositories
                     .ThenInclude(x => x.User)
                 .Include(x => x.HotelOptions)
                 .Include(x => x.Rooms)
-                    .ThenInclude(x => x.Bookings);
+                    .ThenInclude(x => x.Bookings)
+                .Include(x => x.City);
         }
     }
 }

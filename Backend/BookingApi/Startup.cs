@@ -152,6 +152,7 @@ namespace BookingApi
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddScoped<IBookingRepository, BookingRepository>();
+            services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
             services.AddScoped<ICommodityRepository, CommodityRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
@@ -166,6 +167,7 @@ namespace BookingApi
             services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddScoped<IBookingService, BookingService>();
+            services.AddScoped<ICityService, CityService>();
             services.AddScoped<IChatMessageService, ChatMessageService>();
             services.AddScoped<ICommodityService, CommodityService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
@@ -180,6 +182,7 @@ namespace BookingApi
             services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<IEntityViewModelConverter<BookingViewModel, Booking>, BookingConverter>();
+            services.AddScoped<IEntityViewModelConverter<CityViewModel, City>, CityConverter>();
             services.AddScoped<IEntityViewModelConverter<ChatMessageViewModel, ChatMessage>, ChatMessageConverter>();
             services.AddScoped<IEntityViewModelConverter<CommodityViewModel, Commodity>, CommodityConverter>();
             services.AddScoped<IEntityViewModelConverter<EmployeeViewModel, Employee>, EmployeeConverter>();

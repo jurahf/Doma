@@ -21,7 +21,7 @@ namespace ViewModel
 
         public string Address { get; set; }
 
-        public string City { get; set; }
+        public CityViewModel City { get; set; }
 
         public decimal Latitude { get; set; }
 
