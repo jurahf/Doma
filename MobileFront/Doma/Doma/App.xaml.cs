@@ -27,6 +27,7 @@ namespace Doma
 
             services.AddSingleton<IBookingRemoteService, BookingRemoteService>();
             services.AddSingleton<ICommodityRemoteService, CommodityRemoteService>();
+            services.AddSingleton<ICityRemoteService, CityRemoteService>();
 
             serviceProvider = services.BuildServiceProvider();
         }

@@ -19,7 +19,8 @@ namespace Doma
 
             Children.Add(new SearchPage(
                 serviceProvider.GetService<IBookingRemoteService>(), 
-                serviceProvider.GetService<ICommodityRemoteService>()));
+                serviceProvider.GetService<ICommodityRemoteService>(),
+                serviceProvider.GetService<ICityRemoteService>()));
 
             Children.Add(new FaivoritesPage());
             Children.Add(new ClientBookingList());

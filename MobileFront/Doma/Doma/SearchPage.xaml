@@ -6,12 +6,54 @@
              IconImageSource="search.png">
 
     <StackLayout>
-        <Frame BackgroundColor="Transparent" Padding="24" CornerRadius="0">
-            <Label Text="Поиск" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"></Label>
+        
+        <!-- город -->
+        <Frame x:Name="frmCity" BackgroundColor="White" Margin="20" Padding="0" CornerRadius="100" HeightRequest="48">
+            <StackLayout x:Name="inCityFrameLayout" Margin="5" HorizontalOptions="Center" VerticalOptions="Center">
+                <StackLayout Orientation="Horizontal">
+                    <Button 
+                        x:Name="btnCityUnexpand" 
+                        Text="&lt;" 
+                        IsVisible="false" 
+                        Clicked="btnCityUnexpand_Clicked" 
+                        BackgroundColor="Transparent"></Button>
+                    
+                    <Entry 
+                        x:Name="tbCityName" 
+                        FontSize="14" 
+                        HorizontalTextAlignment="Center"
+                        Focused="tbCityName_Focused"
+                        TextChanged="City_OnTextChanged"
+                        Placeholder="Куда едете?"></Entry>
+                </StackLayout>
+
+                <ListView x:Name="cityListView" 
+                      IsVisible="False"   
+                      CachingStrategy="RecycleElement"
+                      BackgroundColor="Transparent"
+                      ItemTapped="ListView_OnItemTapped" 
+                      AbsoluteLayout.LayoutBounds="20,50,269,178"
+                      AbsoluteLayout.LayoutFlags="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame Padding="10,0,10,0">
+                                    <StackLayout BackgroundColor="White" VerticalOptions="CenterAndExpand">
+                                        <Label Text="{Binding Name}" />
+                                    </StackLayout>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                
+            </StackLayout>
         </Frame>
 
-        <Button x:Name="btnRefresh" Text="Обновить" Clicked="btnRefresh_Clicked" />
-
+        <DatePicker x:Name="dtpStartDate" Format="dd.MM.yyyy" TextColor="White">
+        </DatePicker>
+        
+        
 
     </StackLayout>
 
