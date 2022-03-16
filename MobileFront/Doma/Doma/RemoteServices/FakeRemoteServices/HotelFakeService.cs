@@ -30,7 +30,33 @@ namespace Doma.RemoteServices.FakeRemoteServices
                 Address = "Москворецкая наб., 7с2, Москва, 109240",
                 Name = "VOYAGE Hotel & Hostel",
                 Stars = 2,
-                Type = ViewModel.Enums.HotelType.Hostel
+                Type = ViewModel.Enums.HotelType.Hostel,
+                Rooms = new List<RoomViewModel>()
+                {
+                    new RoomViewModel()
+                    {
+                        Id = 1,
+                        AdultPlaces = 2,
+                        ChildPlaces = 0,
+                        CostPerDay = 2890.0f,
+                        Count = 2,
+                        Description = @"Этот простой хостел находится в 12 минутах ходьбы от станции метро ""Китай - город"", в 6 минутах ходьбы от сталинской высотки на Котельнической набережной и в 3 км от дворцов и музеев знаменитого Московского Кремля.
+    Общие номера, оформленные в ярких тонах, оборудованы доступом к Wi - Fi, двухъярусными кроватями с занавесками и лампами для чтения.Есть общие ванные комнаты.В отдельных номерах установлены телевизоры с плоским экраном.В них могут разместиться до 2 человек. Имеется также семейный номер.
+    В распоряжении гостей общая кухня,обеденная зона и услуги прачечной.",
+                        Square = 20,
+                        Photos = new List<RoomPhotoViewModel>()
+                        {
+                            new RoomPhotoViewModel() { Id = 1, Title = "Обычный номер", Url = "https://hotelier.pro/upload/iblock/868/8687bfc0f0898e8e4074d44166df587c.jpg" },
+                            new RoomPhotoViewModel() { Id = 2, Title = "Обычный номер",     Url = "https://m.buro247.ru/images/tanechka/lego1_17_13x021_1.JPG" },
+                            new RoomPhotoViewModel() { Id = 3, Title = "Стандартный номер", Url = "https://kitchen.cdnvideo.ru/wp-content/uploads/2019/10/tajtl-2.jpg" },
+                            new RoomPhotoViewModel() { Id = 4, Title = "Номер люкс",        Url = "https://blog.ostrovok.ru/wp-content/uploads/2012/02/download.jpg" },
+                            new RoomPhotoViewModel() { Id = 5, Title = "Номер люкс",        Url = "http://hotelmaster.ru/wp-content/uploads/2016/02/room-service-discontinued-1024x693-460x260" },
+                        },
+                        Bookings = new List<BookingViewModel>()
+                        {
+                        }
+                    }
+                }
             };
 
             /*
@@ -40,6 +66,8 @@ namespace Doma.RemoteServices.FakeRemoteServices
                 .Include(x => x.HotelOptions)
                 .Include(x => x.Rooms)
                     .ThenInclude(x => x.Bookings)
+                .Include(x => x.Rooms)
+                    .ThenInclude(x => x.Photos)
                 .Include(x => x.City);
             */
         }

@@ -5,7 +5,9 @@
              x:Name="PageInstance"
              Title="Результаты поиска">
   
-    <ListView x:Name="MyListView"
+    <ListView
+            BindingContext="{Binding Source={x:Reference PageInstance}}"
+            x:Name="MyListView"
             ItemsSource="{Binding SearchList}"
             ItemTapped="Handle_ItemTapped"
             CachingStrategy="RecycleElement"

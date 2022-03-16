@@ -29,6 +29,8 @@ namespace Repositories
                 .Include(x => x.HotelOptions)
                 .Include(x => x.Rooms)
                     .ThenInclude(x => x.Bookings)
+                .Include(x => x.Rooms)
+                    .ThenInclude(x => x.Photos)
                 .Include(x => x.City);
         }
     }
