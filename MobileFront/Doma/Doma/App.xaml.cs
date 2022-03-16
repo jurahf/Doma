@@ -1,5 +1,6 @@
 ﻿using Doma.RemoteServices;
 using Doma.RemoteServices.Common;
+using Doma.RemoteServices.FakeRemoteServices;
 using Doma.RemoteServices.ServiceDeclarations;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -25,9 +26,17 @@ namespace Doma
         {
             services.AddSingleton<IRequestProvider, RequestProvider>();
 
+#if DEBUG
+            services.AddSingleton<ICityRemoteService, CityFakeService>();
+            services.AddSingleton<IRoomRemoteService, RoomFakeService>();
+            services.AddSingleton<IHotelRemoteService, HotelFakeService>();
+#else
             services.AddSingleton<IBookingRemoteService, BookingRemoteService>();
             services.AddSingleton<ICommodityRemoteService, CommodityRemoteService>();
             services.AddSingleton<ICityRemoteService, CityRemoteService>();
+            services.AddSingleton<IRoomRemoteService, RoomRemoteService>();
+            services.AddSingleton<IHotelRemoteService, HotelRemoteService>();
+#endif
 
             serviceProvider = services.BuildServiceProvider();
         }

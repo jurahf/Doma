@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ViewModel
@@ -26,6 +27,14 @@ namespace ViewModel
         public float Square { get; set; }
 
         public float CostPerDay { get; set; }
+
+        public string MainPhoto
+        {
+            get
+            {
+                return Photos.FirstOrDefault()?.Url ?? "";
+            }
+        }
 
         public HotelViewModel Hotel { get; set; }
 

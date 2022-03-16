@@ -9,6 +9,7 @@ namespace ViewModel.Enums
         Hotel,
         Apartments,
         House,
-        Camping
+        Camping,
+        Hostel
     }
 }

@@ -17,10 +17,16 @@ namespace Doma
         {
             InitializeComponent();
 
-            Children.Add(new SearchPage(
-                serviceProvider.GetService<IBookingRemoteService>(), 
-                serviceProvider.GetService<ICommodityRemoteService>(),
-                serviceProvider.GetService<ICityRemoteService>()));
+            NavigationPage searchPages = new NavigationPage(
+                new SearchPage(
+                    serviceProvider.GetService<IRoomRemoteService>(),
+                    serviceProvider.GetService<ICityRemoteService>(),
+                    serviceProvider.GetService<IHotelRemoteService>()
+                    ));
+            searchPages.Title = "Поиск";
+            searchPages.IconImageSource = "search.png";
+
+            Children.Add(searchPages);
 
             Children.Add(new FaivoritesPage());
             Children.Add(new ClientBookingList());

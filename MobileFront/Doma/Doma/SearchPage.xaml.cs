@@ -1,4 +1,5 @@
-﻿using Doma.RemoteServices.ServiceDeclarations;
+﻿using Doma.ControllerParameters;
+using Doma.RemoteServices.ServiceDeclarations;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,9 +16,9 @@ namespace Doma
 {
     public partial class SearchPage : ContentPage
     {
-        private readonly IBookingRemoteService bookingService;
-        private readonly ICommodityRemoteService commoditySrvice;
         private readonly ICityRemoteService cityService;
+        private readonly IRoomRemoteService roomService;
+        private readonly IHotelRemoteService hotelService;
 
         private CityViewModel selectedCity = null;
         private List<CityViewModel> cityAutocompleteData = new List<CityViewModel>();
@@ -27,13 +28,13 @@ namespace Doma
         private int childrenCount;
 
         public SearchPage(
-            IBookingRemoteService bookingService, 
-            ICommodityRemoteService commoditySrvice,
-            ICityRemoteService cityService)
+            IRoomRemoteService roomService,
+            ICityRemoteService cityService,
+            IHotelRemoteService hotelService)
         {
-            this.bookingService = bookingService;
-            this.commoditySrvice = commoditySrvice;
+            this.roomService = roomService;
             this.cityService = cityService;
+            this.hotelService = hotelService;
 
             InitializeComponent();
 
@@ -262,5 +263,19 @@ namespace Doma
                 ?? (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density);
         }
 
+        private async void btnSearch_Clicked(object sender, EventArgs e)
+        {
+            SearchRoomFilter filter = new SearchRoomFilter()
+            {
+                CityId = selectedCity?.Id,
+                StartDate = SelectedStartDate,
+                EndDate = SelectedEndDate,
+                AdultsCount = AdultsCount,
+                ChildrenCount = ChildrenCount
+            };
+
+            List<RoomViewModel> results = await roomService.SearchRooms(filter);
+            await this.Navigation.PushAsync(new SearchResultListPage(results, filter, hotelService));
+        }
     }
 }

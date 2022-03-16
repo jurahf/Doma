@@ -11,7 +11,7 @@ namespace Repositories
     public class BaseRepository<T> : IRepository<T> 
         where T : class, IEntity
     {
-        private readonly BookingDatabaseContext dbContext;
+        protected readonly BookingDatabaseContext dbContext;
 
         public BaseRepository(BookingDatabaseContext dbContext)
         {

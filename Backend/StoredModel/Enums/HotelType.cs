@@ -9,6 +9,7 @@ namespace StoredModel.Enums
         Hotel,
         Apartments,
         House,
-        Camping
+        Camping,
+        Hostel
     }
 }

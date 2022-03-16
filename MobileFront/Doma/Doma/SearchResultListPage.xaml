@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Doma.SearchResultListPage"
+             x:Name="PageInstance"
+             Title="Результаты поиска">
+  
+    <ListView x:Name="MyListView"
+            ItemsSource="{Binding SearchList}"
+            ItemTapped="Handle_ItemTapped"
+            CachingStrategy="RecycleElement"
+            RowHeight="150"> 
+
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <Frame Padding="20, 10, 20, 10" 
+                           Margin="0, 0, 0, 10"
+                           BackgroundColor="white"
+                           CornerRadius="10">
+                        
+                        <StackLayout Orientation="Horizontal">
+                            <StackLayout>
+                                <Image BackgroundColor="LightGray" Source="{Binding MainPhoto}" HeightRequest="80" WidthRequest="100"></Image>
+                                <Label HorizontalOptions="CenterAndExpand" FontSize="16" TextColor="Black" Text="{Binding CostPerDay, StringFormat='{0} р/д'}"></Label>
+                            </StackLayout>
+                            <StackLayout>
+                                <Label Text="{Binding Hotel.Name}" />
+                                <Label Text="{Binding Description}" />
+                            </StackLayout>
+                        </StackLayout>
+                        
+                    </Frame>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+        
+  </ListView>
+</ContentPage>

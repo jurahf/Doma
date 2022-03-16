@@ -56,44 +56,51 @@
         
         <!-- Даты -->
         <Frame x:Name="frmDates" BackgroundColor="White" Margin="20" Padding="0" CornerRadius="100" HeightRequest="48" HorizontalOptions="FillAndExpand">
-            <StackLayout x:Name="inDatesFrameLayout" Margin="5" HorizontalOptions="Center" VerticalOptions="Center"
-                         BindingContext="{Binding Source={x:Reference SearchPageInstance}}">
-                <StackLayout Orientation="Horizontal">
-                    <Button 
-                        x:Name="btnDatesUnexpand" 
-                        Text="&lt;" 
-                        IsVisible="false" 
-                        Clicked="btnDatesUnexpand_Clicked" 
-                        BackgroundColor="Transparent"></Button>
+            <ScrollView>                    
+                <StackLayout x:Name="inDatesFrameLayout" Margin="5" HorizontalOptions="Center" VerticalOptions="Center"
+                             BindingContext="{Binding Source={x:Reference SearchPageInstance}}">
+                    <StackLayout Orientation="Horizontal">
+                        <Button 
+                            x:Name="btnDatesUnexpand" 
+                            Text="&lt;" 
+                            IsVisible="false" 
+                            Clicked="btnDatesUnexpand_Clicked" 
+                            BackgroundColor="Transparent"></Button>
 
-                    <Entry 
-                        x:Name="tbDates" 
-                        FontSize="14" 
-                        HorizontalOptions="CenterAndExpand"
-                        HorizontalTextAlignment="Center"
-                        Focused="tbDatesName_Focused"
-                        Placeholder="Даты поездки"></Entry>
-                </StackLayout>
+                        <Entry 
+                            x:Name="tbDates" 
+                            FontSize="14" 
+                            HorizontalOptions="CenterAndExpand"
+                            HorizontalTextAlignment="Center"
+                            Focused="tbDatesName_Focused"
+                            Placeholder="Даты поездки"></Entry>
+                    </StackLayout>
 
-                <controls:RangeSelectionCalendar
-                    x:Name="cldDates"
-                    Margin="20, 0, 20, 0"
-                    VerticalOptions="FillAndExpand"
-                    HorizontalOptions="FillAndExpand"
-                    SelectedEndDate="{Binding SelectedEndDate, Mode=TwoWay}"
-                    SelectedStartDate="{Binding SelectedStartDate, Mode=TwoWay}"
-                    SelectedDateColor="white"
-                    SelectedDayBackgroundColor="black">
-                    <controls:Calendar.FooterSectionTemplate>
-                        <DataTemplate>
-                            <Label Text=""></Label>
-                        </DataTemplate>
-                    </controls:Calendar.FooterSectionTemplate>
-                </controls:RangeSelectionCalendar>
+                    <controls:RangeSelectionCalendar
+                        x:Name="cldDates"
+                        Margin="20, 0, 20, 0"
+                        VerticalOptions="Start"
+                        HorizontalOptions="FillAndExpand"
+                        SelectedEndDate="{Binding SelectedEndDate, Mode=TwoWay}"
+                        SelectedStartDate="{Binding SelectedStartDate, Mode=TwoWay}"
+                        SelectedDateColor="white"
+                        SelectedDayBackgroundColor="black"
+                        CalendarSectionShown="True">
+                        <controls:Calendar.FooterSectionTemplate>
+                            <DataTemplate>
+                                <Label Text=""></Label>
+                            </DataTemplate>
+                        </controls:Calendar.FooterSectionTemplate>
+                    </controls:RangeSelectionCalendar>
 
-                <Button Text="Готово" Margin="0, 0, 20, 0" TextColor="White" BackgroundColor="black" HorizontalOptions="End" Clicked="btnDatesUnexpand_Clicked"></Button>
+                    <Button Text="Готово"
+                            Margin="0, 0, 20, 0" 
+                            TextColor="White" 
+                            BackgroundColor="black" HorizontalOptions="End"
+                            Clicked="btnDatesUnexpand_Clicked"></Button>
                 
-            </StackLayout>
+                </StackLayout>
+            </ScrollView>
         </Frame>
        
         <!-- Кто приедет -->
@@ -143,11 +150,13 @@
         <Button x:Name="btnSearch" 
                 CornerRadius="100"
                 Text="Подобрать варианты"
-                Margin="20" Padding="0"
+                Margin="20" 
+                Padding="0"
                 HeightRequest="48" 
                 HorizontalOptions="FillAndExpand"
                 BackgroundColor="#d0365f"
-                TextColor="white"></Button>
+                TextColor="white"
+                Clicked="btnSearch_Clicked"></Button>
 
     </StackLayout>
 
