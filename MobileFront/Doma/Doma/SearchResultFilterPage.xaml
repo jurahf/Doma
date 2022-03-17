@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="Doma.SearchResultFilterPage"
+             x:Name="PageInstance">
+    
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#D855E3" Offset="0.1" />
+            <GradientStop Color="#9B55E3" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    
+    <ContentPage.Content>
+
+        <ScrollView>
+            <StackLayout Margin="20" BindingContext="{Binding Source={x:Reference PageInstance}}">
+
+                <xct:RangeSlider
+                    x:Name="priceSlider"
+                    MaximumValue="1000000"
+                    MinimumValue="0"
+                    StepValue="1"
+                    LowerValue="{Binding Filter.MinPrice, Mode=TwoWay}"
+                    UpperValue="{Binding Filter.MaxPrice, Mode=TwoWay}"/>
+
+
+                <ListView
+                    x:Name="hotelTypeListView"
+                    ItemsSource="{Binding Filter.HotelTypes}"
+                    CachingStrategy="RecycleElement"
+                    RowHeight="50"
+                    Margin="0, 20, 0, 0"
+                    ItemTapped="hotelTypeListView_ItemTapped">
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame Padding="20, 10, 20, 10" 
+                                   Margin="0, 0, 0, 10"
+                                   BackgroundColor="white"
+                                   CornerRadius="10">
+
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label HorizontalOptions="StartAndExpand" FontSize="16" TextColor="Black" Text="{Binding Caption}"></Label>
+                                        <Switch IsToggled="{Binding Selected, Mode=TwoWay}"></Switch>
+                                    </StackLayout>
+
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </ListView>
+                
+
+
+                <ListView
+                    x:Name="commodityListView"
+                    ItemsSource="{Binding Filter.Commodities}"
+                    CachingStrategy="RecycleElement"
+                    RowHeight="50"
+                    Margin="0, 20, 0, 0"
+                    ItemTapped="commodityListView_ItemTapped">
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame Padding="20, 10, 20, 10" 
+                                   Margin="0, 0, 0, 10"
+                                   BackgroundColor="white"
+                                   CornerRadius="10">
+
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label HorizontalOptions="StartAndExpand" FontSize="16" TextColor="Black" Text="{Binding Commodity.Name}"></Label>
+                                        <Switch IsToggled="{Binding Selected, Mode=TwoWay}"></Switch>
+                                    </StackLayout>
+
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </ListView>
+
+
+                <Button HorizontalOptions="End" TextColor="White" BackgroundColor="Black" Text="Применить" Clicked="Button_Clicked"></Button>
+
+            </StackLayout>        
+        </ScrollView>            
+        
+    </ContentPage.Content>
+</ContentPage>
