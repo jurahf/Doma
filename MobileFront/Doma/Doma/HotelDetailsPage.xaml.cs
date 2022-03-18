@@ -15,11 +15,19 @@ namespace Doma
     {
         public List<RoomPhotoViewModel> AllPhotos { get; set; }
 
+        private HotelViewModel hotel { get; set; }
+
+        private RoomViewModel room { get; set; }
+
 
         public HotelDetailsPage(HotelViewModel hotel, RoomViewModel room, SearchRoomFilter filter)
         {
+            this.hotel = hotel;
+            this.room = room;
+
             InitializeComponent();
-            
+
+            roomsListView.ItemsSource = hotel.Rooms;
             Title = hotel.Name;
             AllPhotos = hotel.Rooms.SelectMany(x => x.Photos).ToList();
             carousel.ItemsSource = AllPhotos;

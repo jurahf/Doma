@@ -52,6 +52,12 @@ namespace Doma.RemoteServices.FakeRemoteServices
                             new RoomPhotoViewModel() { Id = 4, Title = "Номер люкс",        Url = "https://blog.ostrovok.ru/wp-content/uploads/2012/02/download.jpg" },
                             new RoomPhotoViewModel() { Id = 5, Title = "Номер люкс",        Url = "http://hotelmaster.ru/wp-content/uploads/2016/02/room-service-discontinued-1024x693-460x260" },
                         },
+                        Commodities = new List<CommodityViewModel>()
+                        {
+                            new CommodityViewModel() { Id = 3, Name = "Wi-Fi" },
+                            new CommodityViewModel() { Id = 4, Name = "Телевизор" },
+                            new CommodityViewModel() { Id = 8, Name = "Односпальные кровати" },
+                        },
                         Bookings = new List<BookingViewModel>()
                         {
                         }

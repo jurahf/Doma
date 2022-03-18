@@ -40,6 +40,7 @@ namespace Services.Converters
                 Latitude = viewModel.Latitude,
                 Longitude = viewModel.Longitude,
                 Name = viewModel.Name,
+                Description = viewModel.Description,
                 Stars = viewModel.Stars,
                 Type = (StoredModel.Enums.HotelType)(int)viewModel.Type,
                 Employees = withRelations 
@@ -81,6 +82,7 @@ namespace Services.Converters
                 Latitude = dbModel.Latitude,
                 Longitude = dbModel.Longitude,
                 Name = dbModel.Name,
+                Description = dbModel.Description,
                 Stars = dbModel.Stars,
                 Type = (ViewModel.Enums.HotelType)(int)dbModel.Type,
                 Employees = withRelations

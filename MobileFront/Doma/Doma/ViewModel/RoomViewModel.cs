@@ -28,6 +28,14 @@ namespace ViewModel
 
         public float CostPerDay { get; set; }
 
+        public string CommoditiesInline
+        {
+            get
+            {
+                return string.Join(", ", Commodities.Select(x => x.Name));
+            }
+        }
+
         public string MainPhoto
         {
             get

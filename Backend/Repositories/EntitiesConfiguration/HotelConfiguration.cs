@@ -22,6 +22,10 @@ namespace Repositories.EntitiesConfiguration
                 .IsRequired()
                 .HasMaxLength(255);
 
+            builder.Property(x => x.Description)
+                .IsRequired(false)
+                .HasMaxLength(2000);
+
             builder.Property(x => x.Address)
                 .HasMaxLength(1000);
 

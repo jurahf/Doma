@@ -32,7 +32,7 @@
                                 </StackLayout>
                                 <StackLayout>
                                     <Label Text="{Binding Hotel.Name}" />
-                                    <Label Text="{Binding Description}" />
+                                    <Label Text="{Binding Hotel.Description}" />
                                 </StackLayout>
                             </StackLayout>
                         
