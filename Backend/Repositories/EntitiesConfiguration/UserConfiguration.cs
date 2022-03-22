@@ -32,6 +32,17 @@ namespace Repositories.EntitiesConfiguration
             builder.Property(x => x.PasswordHash)
                 .IsRequired()
                 .HasMaxLength(2000);
+
+            builder.Property(x => x.IsBlocked)
+                .IsRequired();
+
+            builder.Property(x => x.IsConfirmed)
+                .IsRequired();
+
+            builder.Property(x => x.ConfirmKey);
+
+            builder.Property(x => x.UserType)
+                .IsRequired();
         }
     }
 }

@@ -6,6 +6,9 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Services.ServiceDeclaration;
+using ViewModel;
+using System.Threading.Tasks;
 
 namespace BookingApi.Controllers
 {
@@ -13,35 +16,66 @@ namespace BookingApi.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly IUserService userService;
+
+        public AuthController(IUserService userService)
+        {
+            this.userService = userService;
+        }
+
+
         [AllowAnonymous]
         [HttpPost]
         [Route("Login")]
-        public ActionResult<string> Login(
-            AuthenticationRequest authRequest,
-            [FromServices] IJwtSigningEncodingKey signingEncodingKey)
+        public ActionResult<string> Login(AuthenticationRequest authRequest)
         {
-            // 1. Проверяем данные пользователя из запроса.
-            // TODO
+            LoginResult loginResult = userService.Login(authRequest.Name, authRequest.Password);
 
-            // 2. Создаем утверждения для токена.
-            var claims = new Claim[]
+            if (loginResult.Success)
             {
-            new Claim(type:ClaimTypes.NameIdentifier, authRequest.Name)
-            };
-
-            // 3. Генерируем JWT.
-            var token = new JwtSecurityToken(
-                issuer: "DomaApp",
-                audience: "DomaAppClient",
-                claims: claims,
-                expires: DateTime.Now.AddMinutes(5),
-                signingCredentials: new SigningCredentials(
-                        signingEncodingKey.GetKey(),
-                        signingEncodingKey.SigningAlgorithm)
-            );
-
-            string jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
-            return jwtToken;
+                return Ok(loginResult.Token);
+            }
+            else
+            {
+                return Unauthorized(loginResult.ErrorCode);
+            }
         }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("Register")]
+        public async Task<ActionResult> Register(RegistrationRequest regRequest)
+        {
+            var confirmUrl = $"{Request.Scheme}://{Request.Host.Value}{Url.Action(nameof(Confirm))}";
+
+            RegisterResult registerResult = await userService.Register(regRequest, confirmUrl);
+
+            if (registerResult.Success)
+            {
+                return Ok();
+            }
+            else
+            {
+                return Unauthorized(registerResult.ErrorCode);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("Confirm")]
+        public ActionResult<string> Confirm(int id, string key)
+        {
+            bool confirmed = userService.ConfirmUser(id, key);
+
+            if (confirmed)
+            {
+                return Ok("Ваша учетная запись подтверждена");
+            }
+            else
+            {
+                return BadRequest("Что-то пошло не так, не удалось подтвердить учетную запись");
+            }
+        }
+
     }
 }

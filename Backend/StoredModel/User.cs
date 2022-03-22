@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StoredModel.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -25,6 +26,14 @@ namespace StoredModel
         public string PasswordHash { get; set; }
 
         public string PhoneNumber { get; set; }
+
+        public bool IsBlocked { get; set; }
+
+        public bool IsConfirmed { get; set; }
+
+        public UserType UserType { get; set; }
+
+        public string ConfirmKey { get; set; }
 
         public ICollection<Employee> Employees { get; set; }
 

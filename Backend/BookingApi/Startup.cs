@@ -12,7 +12,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Repositories;
 using Services;
+using Services.Authorization;
 using Services.Converters;
+using Services.EmailSending;
 using Services.RepositoryDeclaration;
 using Services.ServiceDeclaration;
 using StoredModel;
@@ -25,36 +27,6 @@ using ViewModel;
 
 namespace BookingApi
 {
-    // Ключ для создания подписи (приватный)
-    public interface IJwtSigningEncodingKey
-    {
-        string SigningAlgorithm { get; }
-
-        SecurityKey GetKey();
-    }
-
-    // Ключ для проверки подписи (публичный)
-    public interface IJwtSigningDecodingKey
-    {
-        SecurityKey GetKey();
-    }
-
-    public class SigningSymmetricKey : IJwtSigningEncodingKey, IJwtSigningDecodingKey
-    {
-        private readonly SymmetricSecurityKey _secretKey;
-
-        public string SigningAlgorithm { get; } = SecurityAlgorithms.HmacSha256;
-
-        public SigningSymmetricKey(string key)
-        {
-            this._secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
-        }
-
-        public SecurityKey GetKey() => this._secretKey;
-    }
-
-
-
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -67,13 +39,13 @@ namespace BookingApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            const string signingSecurityKey = "0d5b3235a8b403c3dab9c3f4f65c07fcalskd234n1k41230";
+            const string signingSecurityKey = AuthorizationHelper.SecurityKey;
             var signingKey = new SigningSymmetricKey(signingSecurityKey);
             services.AddSingleton<IJwtSigningEncodingKey>(signingKey);
 
             services.AddControllers();
 
-            const string jwtSchemeName = "Bearer";
+            const string jwtSchemeName = AuthorizationHelper.Bearer;
             var signingDecodingKey = (IJwtSigningDecodingKey)signingKey;
             services
                 .AddAuthentication(options => 
@@ -107,7 +79,7 @@ namespace BookingApi
                 c.AddSecurityDefinition(jwtSchemeName, new OpenApiSecurityScheme()
                 {
                     Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer 1234567890\"",
-                    Name = "Authorization",
+                    Name = AuthorizationHelper.HeaderName,
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey
                 });
@@ -180,6 +152,7 @@ namespace BookingApi
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<ISupportRequestService, SupportRequestService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IEmailSender, EmailSender>();
 
             services.AddScoped<IEntityViewModelConverter<BookingViewModel, Booking>, BookingConverter>();
             services.AddScoped<IEntityViewModelConverter<CityViewModel, City>, CityConverter>();

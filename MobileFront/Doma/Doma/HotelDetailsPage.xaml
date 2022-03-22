@@ -76,7 +76,7 @@
                                         <Label TextColor="LimeGreen" Text="{Binding CommoditiesInline}"></Label>
                                         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                             <Label VerticalOptions="Center" TextColor="Black" FontSize="18" Text="{Binding CostPerDay, StringFormat='{0} р/д'}"></Label>
-                                            <Button VerticalOptions="Center" x:Name="btnBook" HorizontalOptions="End" Text="Забронировать" TextColor="White" BackgroundColor="Black"></Button>
+                                            <Button VerticalOptions="Center" HorizontalOptions="End" Text="Забронировать" TextColor="White" BackgroundColor="Black"></Button>
                                         </StackLayout>
                                     </StackLayout>
 
@@ -88,7 +88,6 @@
                 </ListView>
 
                 <!-- добавить в избранное -->
-                <!-- все варианты в этой гостинице - номера, удобства, цены -->
                 <!-- выбор опций, бронирование -->
                 <!-- отзывы -->
 

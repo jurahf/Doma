@@ -7,5 +7,6 @@ namespace Services.RepositoryDeclaration
 {
     public interface IUserRepository : IRepository<User>
     {
+        User GetByIdentityName(string identityName);
     }
 }

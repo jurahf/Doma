@@ -39,6 +39,9 @@ namespace Services.Converters
                 Id = viewModel.Id,
                 Email = viewModel.Email,
                 Name = viewModel.Name,
+                IsConfirmed = viewModel.IsConfirmed,
+                IsBlocked = viewModel.IsBlocked,
+                UserType = (StoredModel.Enums.UserType)(int)viewModel.UserType,
                 PasswordHash = viewModel.PasswordHash,
                 PhoneNumber = viewModel.PhoneNumber,
                 Bookings = withRelations 
@@ -72,6 +75,9 @@ namespace Services.Converters
                 Id = dbModel.Id,
                 Email = dbModel.Email,
                 Name = dbModel.Name,
+                IsConfirmed = dbModel.IsConfirmed,
+                IsBlocked = dbModel.IsBlocked,
+                UserType = (ViewModel.Enums.UserType)(int)dbModel.UserType,
                 PasswordHash = dbModel.PasswordHash,
                 PhoneNumber = dbModel.PhoneNumber,
                 Bookings = withRelations

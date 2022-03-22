@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Services;
 using Services.ServiceDeclaration;
 using System.Collections.Generic;
+using System.Security.Claims;
 using ViewModel;
 
 namespace BookingApi.Controllers
@@ -40,12 +41,14 @@ namespace BookingApi.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public virtual int Post([FromBody] T value)
         {
             return service.Add(value);
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public virtual void Put(int id, [FromBody] T value)
         {
             value.Id = id;
@@ -54,6 +57,7 @@ namespace BookingApi.Controllers
 
 
         [HttpDelete("{id}")]
+        [Authorize]
         public virtual void Delete(int id)
         {
             service.Delete(id);

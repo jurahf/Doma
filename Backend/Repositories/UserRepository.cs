@@ -15,6 +15,12 @@ namespace Repositories
         {
         }
 
+        public User GetByIdentityName(string identityName)
+        {
+            return Fetch(dbContext.Users)
+                .FirstOrDefault(x => x.Email.ToLower() == identityName.ToLower());
+        }
+
         protected override IQueryable<User> DefaultOrder(IQueryable<User> set)
         {
             return set.OrderBy(x => x.Name);
