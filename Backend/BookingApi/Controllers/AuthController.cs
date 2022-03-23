@@ -29,16 +29,9 @@ namespace BookingApi.Controllers
         [Route("Login")]
         public ActionResult<string> Login(AuthenticationRequest authRequest)
         {
-            LoginResult loginResult = userService.Login(authRequest.Name, authRequest.Password);
+            LoginResult loginResult = userService.Login(authRequest.Email, authRequest.Password);
 
-            if (loginResult.Success)
-            {
-                return Ok(loginResult.Token);
-            }
-            else
-            {
-                return Unauthorized(loginResult.ErrorCode);
-            }
+            return Ok(loginResult);
         }
 
         [AllowAnonymous]
@@ -50,14 +43,7 @@ namespace BookingApi.Controllers
 
             RegisterResult registerResult = await userService.Register(regRequest, confirmUrl);
 
-            if (registerResult.Success)
-            {
-                return Ok();
-            }
-            else
-            {
-                return Unauthorized(registerResult.ErrorCode);
-            }
+            return Ok(registerResult);
         }
 
         [AllowAnonymous]

@@ -1,4 +1,5 @@
-﻿using Doma.RemoteServices;
+﻿using Doma.Authorization;
+using Doma.RemoteServices;
 using Doma.RemoteServices.Common;
 using Doma.RemoteServices.FakeRemoteServices;
 using Doma.RemoteServices.ServiceDeclarations;
@@ -25,6 +26,9 @@ namespace Doma
         void SetupServices(ServiceCollection services)
         {
             services.AddSingleton<IRequestProvider, RequestProvider>();
+
+            services.AddSingleton<IAuthRemoteService, AuthRemoteService>();
+            services.AddSingleton<ICurrentUserProvider, CurrentUserProvider>();
 
 #if DEBUG
             services.AddSingleton<ICityRemoteService, CityFakeService>();

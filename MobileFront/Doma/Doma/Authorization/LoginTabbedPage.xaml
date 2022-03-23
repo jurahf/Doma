@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Doma.LoginTabbedPage"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            
+            BarBackgroundColor="white"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+            android:TabbedPage.BarItemColor="#717171"
+            android:TabbedPage.BarSelectedItemColor="#9B55E3">
+
+
+    <TabbedPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#D855E3" Offset="0.1" />
+            <GradientStop Color="#9B55E3" Offset="1.0" />
+        </LinearGradientBrush>
+    </TabbedPage.Background>
+
+
+</TabbedPage>

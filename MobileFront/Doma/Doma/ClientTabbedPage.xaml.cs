@@ -1,4 +1,5 @@
-﻿using Doma.RemoteServices.ServiceDeclarations;
+﻿using Doma.Authorization;
+using Doma.RemoteServices.ServiceDeclarations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace Doma
         {
             InitializeComponent();
 
+
             NavigationPage searchPages = new NavigationPage(
                 new SearchPage(
                     serviceProvider.GetService<IRoomRemoteService>(),
@@ -25,13 +27,20 @@ namespace Doma
                     ));
             searchPages.Title = "Поиск";
             searchPages.IconImageSource = "search.png";
-
             Children.Add(searchPages);
+
 
             Children.Add(new FaivoritesPage());
             Children.Add(new ClientBookingList());
             Children.Add(new Support());
-            Children.Add(new ClientProfile());
+
+
+            NavigationPage profilePages = new NavigationPage(
+                new ClientProfile(serviceProvider.GetService<ICurrentUserProvider>()
+                ));
+            profilePages.Title = "Аккаунт";
+            profilePages.IconImageSource = "account.png";
+            Children.Add(profilePages);
         }
     }
 }

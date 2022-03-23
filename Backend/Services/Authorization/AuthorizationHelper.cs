@@ -41,7 +41,7 @@ namespace Services.Authorization
             if (string.IsNullOrEmpty(claimName))
                 throw new ArgumentNullException(nameof(claimName));
 
-            Claim claim = token.Claims.FirstOrDefault(claim => claim.Type?.ToLower() == claimName.ToLower());
+            Claim claim = token.Claims.FirstOrDefault(c => c.Type?.ToLower() == claimName.ToLower());
 
             return claim?.Value;
         }

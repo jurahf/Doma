@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ViewModel;
+using ViewModel.Enums;
 
 namespace Doma.RemoteServices.FakeRemoteServices
 {
@@ -72,7 +73,7 @@ namespace Doma.RemoteServices.FakeRemoteServices
                         Address = "Москворецкая наб., 7с2, Москва, 109240",
                         Name = "VOYAGE Hotel & Hostel",
                         Stars = 2,
-                        Type = ViewModel.Enums.HotelType.Hostel
+                        Type = HotelType.Hostel
                     },
                     Commodities = new List<CommodityViewModel>()
                     {

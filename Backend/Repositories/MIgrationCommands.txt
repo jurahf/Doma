@@ -21,3 +21,7 @@ Update-Database -Migration MigrationName
 
 Удаление последней миграции:
 Remove-Migration -project Repositories
+
+
+Скрипт по миграции (указываем первую непримененную миграцию)
+script-migration -from HotelDescription -project Repositories

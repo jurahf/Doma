@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -200,6 +201,11 @@ namespace BookingApi
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapGet("/", async context =>
+                {
+                    context.Response.Redirect(@"/swagger");
+                });
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action}");

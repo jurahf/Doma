@@ -33,11 +33,11 @@ namespace Doma.RemoteServices.FakeRemoteServices
         {
             return new List<CityViewModel>()
             {
-                new CityViewModel() { Id = 129, Name = "Moskow" },
-                new CityViewModel() { Id = 74, Name = "Sankt-Peterburg" },
-                new CityViewModel() { Id = 3, Name = "Moskow region" },
-                new CityViewModel() { Id = 75, Name = "Samara" },
-                new CityViewModel() { Id = 71, Name = "Saratov" },
+                new CityViewModel() { Id = 129, Name = "Москва" },
+                new CityViewModel() { Id = 74, Name = "Санкт-Петербург" },
+                new CityViewModel() { Id = 3, Name = "Московская область" },
+                new CityViewModel() { Id = 75, Name = "Самара" },
+                new CityViewModel() { Id = 71, Name = "Саратов" },
             };
         }
 

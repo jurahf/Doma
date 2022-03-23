@@ -8,7 +8,7 @@ namespace Doma.RemoteServices.Common
 {
     public abstract class BaseRemoteService<T> : IRemoteService<T> where T : IViewModel
     {
-        protected const string backendUri = "http://doma-booking.ru"; // "https://u1627485.plsk.regruhosting.ru"; // "https://doma-booking.ru"; //
+        protected const string backendUri = "https://doma-booking.ru"; // "https://u1627485.plsk.regruhosting.ru";
         protected readonly IRequestProvider requestProvider;
         
         protected abstract string ControllerPath { get; }

@@ -77,11 +77,11 @@ namespace Services
                 issuer: "DomaApp",
                 audience: "DomaAppClient",
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(AuthorizationHelper.TokenExpiresTimeMinutes),
+                expires: null, // DateTime.Now.AddMinutes(AuthorizationHelper.TokenExpiresTimeMinutes),
                 signingCredentials: new SigningCredentials(
                         signingEncodingKey.GetKey(),
                         signingEncodingKey.SigningAlgorithm)
-            );
+            ); ;
 
             string jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
             return new LoginResult() { Success = true, Token = jwtToken };

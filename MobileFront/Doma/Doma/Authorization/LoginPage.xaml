@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Doma.LoginPage"
+             Title="Вход"
+             >
+    <ContentPage.Content>
+
+        <ScrollView>
+            <StackLayout>
+                <Frame BackgroundColor="Transparent" Padding="24" CornerRadius="0">
+                    <Label Text="Вход" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"></Label>
+                </Frame>
+
+                <Frame BackgroundColor="White" Margin="20" Padding="0" CornerRadius="100" HeightRequest="48" HorizontalOptions="FillAndExpand">
+                    <Entry 
+                        x:Name="tbLogin" 
+                        FontSize="14" 
+                        HorizontalTextAlignment="Center"
+                        Placeholder="Email"></Entry>
+                </Frame>
+
+                <Frame BackgroundColor="White" Margin="20" Padding="0" CornerRadius="100" HeightRequest="48" HorizontalOptions="FillAndExpand">
+                    <Entry 
+                        x:Name="tbPassword" 
+                        IsPassword="True"
+                        FontSize="14" 
+                        HorizontalTextAlignment="Center"
+                        Placeholder="Пароль"></Entry>
+                </Frame>
+
+                <Label x:Name="lblError" HorizontalTextAlignment="Center" BackgroundColor="White" TextColor="Red" IsVisible="false"></Label>
+
+                <Button x:Name="btnLogin" 
+                    CornerRadius="100"
+                    Text="Войти"
+                    Margin="20" 
+                    Padding="0"
+                    HeightRequest="48" 
+                    HorizontalOptions="FillAndExpand"
+                    BackgroundColor="#d0365f"
+                    TextColor="white"
+                    Clicked="btnLogin_Clicked"></Button>
+            
+            </StackLayout>
+        </ScrollView>
+
+    </ContentPage.Content>
+</ContentPage>

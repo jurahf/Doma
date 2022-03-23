@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Doma.RegistrationPage"
+             Title="Регистрация"
+             >
+    <ContentPage.Content>
+        
+        <!--email, name, password, confirm password, user type -->
+        <ScrollView>
+            <StackLayout>
+
+                <Frame BackgroundColor="Transparent" Padding="24" CornerRadius="0">
+                    <Label Text="Регистрация" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"></Label>
+                </Frame>
+
+                <Frame BackgroundColor="White" Margin="20" Padding="0" CornerRadius="100" HeightRequest="48" HorizontalOptions="FillAndExpand">
+                    <Entry 
+                        x:Name="tbLogin" 
+                        FontSize="14" 
+                        HorizontalTextAlignment="Center"
+                        Placeholder="Email"></Entry>
+                </Frame>
+
+                <Frame BackgroundColor="White" Margin="20" Padding="0" CornerRadius="100" HeightRequest="48" HorizontalOptions="FillAndExpand">
+                    <Entry 
+                        x:Name="tbName" 
+                        FontSize="14" 
+                        HorizontalTextAlignment="Center"
+                        Placeholder="Имя и фамилия"></Entry>
+                </Frame>
+
+                <Frame BackgroundColor="White" Margin="20" Padding="0" CornerRadius="100" HeightRequest="48" HorizontalOptions="FillAndExpand">
+                    <Entry 
+                        x:Name="tbPassword" 
+                        IsPassword="True"
+                        FontSize="14" 
+                        HorizontalTextAlignment="Center"
+                        Placeholder="Пароль"></Entry>
+                </Frame>
+
+                <Frame BackgroundColor="White" Margin="20" Padding="0" CornerRadius="100" HeightRequest="48" HorizontalOptions="FillAndExpand">
+                    <Entry 
+                        x:Name="tbPasswordConfirm" 
+                        IsPassword="True"
+                        FontSize="14" 
+                        HorizontalTextAlignment="Center"
+                        Placeholder="Пароль еще раз"></Entry>
+                </Frame>
+
+                <Frame BackgroundColor="Transparent" Margin="20" Padding="0" CornerRadius="20" HeightRequest="96" HorizontalOptions="FillAndExpand">
+                    <StackLayout Margin="0, 10, 0, 0" VerticalOptions="FillAndExpand">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <RadioButton x:Name="rbClient" GroupName="grUserType" Value="Ищу дома"></RadioButton>
+                            <Label Text="Ищу дома" VerticalOptions="CenterAndExpand" TextColor="White" FontSize="18"></Label>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <RadioButton x:Name="rbHotel" GroupName="grUserType" Value="Предоставляю дома"></RadioButton>
+                            <Label Text="Предоставляю дома" VerticalOptions="CenterAndExpand" TextColor="White" FontSize="18"></Label>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+
+                <Label x:Name="lblSuccess" HorizontalTextAlignment="Center" BackgroundColor="White" TextColor="Green" IsVisible="false"></Label>
+                <Label x:Name="lblError" HorizontalTextAlignment="Center" BackgroundColor="White" TextColor="Red" IsVisible="false"></Label>
+
+                <Button x:Name="btnLogin" 
+                    CornerRadius="100"
+                    Text="Зарегистрироваться"
+                    Margin="20" 
+                    Padding="0"
+                    HeightRequest="48" 
+                    HorizontalOptions="FillAndExpand"
+                    BackgroundColor="#d0365f"
+                    TextColor="white"
+                    Clicked="btnLogin_Clicked"></Button>
+
+            </StackLayout>
+        </ScrollView>
+
+    </ContentPage.Content>
+</ContentPage>
