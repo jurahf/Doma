@@ -16,8 +16,8 @@ namespace Services.Converters
                 Date = viewModel.Date,
                 User = new User() { Id = viewModel.User?.Id ?? 0, Name = viewModel.User?.Name },
                 UserId = viewModel.User?.Id ?? 0,
-                Hotel = new Hotel() { Id = viewModel.Hotel?.Id ?? 0, Name = viewModel.Hotel?.Name },
-                HotelId = viewModel.Hotel?.Id ?? 0
+                Room = new Room() { Id = viewModel.Room?.Id ?? 0 },
+                RoomId = viewModel.Room?.Id ?? 0
             };
         }
 
@@ -28,7 +28,7 @@ namespace Services.Converters
                 Id = dbModel.Id,
                 Date = dbModel.Date,
                 User = new UserViewModel() { Id = dbModel.User?.Id ?? 0, Name = dbModel.User?.Name },
-                Hotel = new HotelViewModel() { Id = dbModel.Hotel?.Id ?? 0, Name = dbModel.Hotel?.Name },
+                Room = new RoomViewModel() { Id = dbModel.Room?.Id ?? 0 },
             };
         }
     }

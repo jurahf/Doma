@@ -23,14 +23,14 @@ namespace BookingApi.Controllers
         }
 
         [HttpGet]
-        [Route("GetByHotel")]
+        [Route("GetByRoom")]
         [Authorize]
-        public async Task<List<LikeViewModel>> GetByHotel(int hotelId)
+        public async Task<List<LikeViewModel>> GetByRoom(int roomId)
         {
-            if (hotelId <= 0)
+            if (roomId <= 0)
                 throw new ArgumentException();
 
-            return await service.LikesByHotel(hotelId);
+            return await service.LikesByRoom(roomId);
         }
 
 

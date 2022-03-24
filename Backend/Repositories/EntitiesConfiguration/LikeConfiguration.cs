@@ -21,9 +21,9 @@ namespace Repositories.EntitiesConfiguration
             builder.Property(x => x.Date)
                 .IsRequired();
 
-            builder.HasOne(x => x.Hotel)
+            builder.HasOne(x => x.Room)
                 .WithMany(x => x.Likes)
-                .HasForeignKey(x => x.HotelId);
+                .HasForeignKey(x => x.RoomId);
 
             builder.HasOne(x => x.User)
                 .WithMany(x => x.Likes)

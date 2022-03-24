@@ -21,9 +21,9 @@ namespace Services
             this.repository = repository;
         }
 
-        public async Task<List<LikeViewModel>> LikesByHotel(int hotelId)
+        public async Task<List<LikeViewModel>> LikesByRoom(int roomId)
         {
-            List<Like> likes = await repository.LikesByHotel(hotelId);
+            List<Like> likes = await repository.LikesByRoom(roomId);
             return likes.Select(x => converter.ConvertToViewModel(x)).ToList();
         }
 

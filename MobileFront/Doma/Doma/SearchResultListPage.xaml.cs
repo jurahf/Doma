@@ -1,4 +1,5 @@
-﻿using Doma.ControllerParameters;
+﻿using Doma.Authorization;
+using Doma.ControllerParameters;
 using Doma.RemoteServices.ServiceDeclarations;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ namespace Doma
     public partial class SearchResultListPage : ContentPage
     {
         private readonly IHotelRemoteService hotelService;
+        private readonly ILikeRemoteService likeService;
+        private readonly ICurrentUserProvider userProvider;
         private SearchRoomFilter baseFilter;
 
         public List<RoomViewModel> SearchList { get; set; }
@@ -34,13 +37,17 @@ namespace Doma
         public SearchResultListPage(
             List<RoomViewModel> searchList, 
             SearchRoomFilter baseFilter,
-            IHotelRemoteService hotelService)
+            IHotelRemoteService hotelService,
+            ILikeRemoteService likeService,
+            ICurrentUserProvider userProvider)
         {
             InitializeComponent();
 
             this.SearchList = searchList;   // TODO: группировать по отелям
             this.baseFilter = baseFilter;
             this.hotelService = hotelService;
+            this.likeService = likeService;
+            this.userProvider = userProvider;
 
             extendedFilter = new ExtendedRoomFilter() 
             {
@@ -119,7 +126,7 @@ namespace Doma
             RoomViewModel room = e.Item as RoomViewModel;
             HotelViewModel hotel = await hotelService.Get(room.Hotel.Id);
 
-            await Navigation.PushAsync(new HotelDetailsPage(hotel, room, baseFilter));
+            await Navigation.PushAsync(new HotelDetailsPage(hotel, room, baseFilter, likeService, userProvider));
         }
 
         private async void Filter_Clicked(object sender, EventArgs e)

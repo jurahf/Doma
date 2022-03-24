@@ -30,7 +30,8 @@ namespace Repositories
                 .Include(x => x.Category)
                 .Include(x => x.Photos)
                 .Include(x => x.Commodities)
-                .Include(x => x.Bookings);
+                .Include(x => x.Bookings)
+                .Include(x => x.Likes);
         }
 
         public Task<List<Room>> SearchRooms(SearchRoomsFilter filter)

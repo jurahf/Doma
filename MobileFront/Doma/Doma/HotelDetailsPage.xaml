@@ -51,6 +51,13 @@
                 <Label Text="{Binding hotel.Name}"></Label>
                 <Label Text="{Binding hotel.Description}"></Label>
 
+                <Button x:Name="btnLike"
+                        HorizontalOptions="Center" 
+                        Text="В избранное"
+                        TextColor="White"
+                        BackgroundColor="#d0365f"
+                        Clicked="btnLike_Clicked"></Button>
+
                 <ListView
                     BindingContext="{Binding Source={x:Reference PageInstance}}"
                     x:Name="roomsListView"
@@ -78,6 +85,7 @@
                                             <Label VerticalOptions="Center" TextColor="Black" FontSize="18" Text="{Binding CostPerDay, StringFormat='{0} р/д'}"></Label>
                                             <Button VerticalOptions="Center" HorizontalOptions="End" Text="Забронировать" TextColor="White" BackgroundColor="Black"></Button>
                                         </StackLayout>
+
                                     </StackLayout>
 
                                 </Frame>
@@ -87,7 +95,6 @@
 
                 </ListView>
 
-                <!-- добавить в избранное -->
                 <!-- выбор опций, бронирование -->
                 <!-- отзывы -->
 

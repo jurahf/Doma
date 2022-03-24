@@ -40,8 +40,7 @@ namespace Repositories
                     .ThenInclude(x => x.Author)
                 .Include(x => x.OutcomingMessages)
                     .ThenInclude(x => x.Reciver)
-                .Include(x => x.Likes)
-                    .ThenInclude(x => x.Hotel);
+                .Include(x => x.Likes);
         }
     }
 }

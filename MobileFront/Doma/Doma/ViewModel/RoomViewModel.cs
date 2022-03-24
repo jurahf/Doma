@@ -12,6 +12,7 @@ namespace ViewModel
             Photos = new HashSet<RoomPhotoViewModel>();
             Commodities = new HashSet<CommodityViewModel>();
             Bookings = new HashSet<BookingViewModel>();
+            Likes = new List<LikeViewModel>();
         }
 
         public int Id { get; set; }
@@ -75,5 +76,7 @@ namespace ViewModel
         public ICollection<CommodityViewModel> Commodities { get; set; }
 
         public ICollection<BookingViewModel> Bookings { get; set; }
+
+        public List<LikeViewModel> Likes { get; set; }
     }
 }

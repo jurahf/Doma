@@ -8,7 +8,7 @@ namespace Services.RepositoryDeclaration
 {
     public interface ILikeRepository : IRepository<Like>
     {
-        Task<List<Like>> LikesByHotel(int hotelId);
+        Task<List<Like>> LikesByRoom(int roomId);
 
         Task<List<Like>> LikesByUser(int userId);
     }

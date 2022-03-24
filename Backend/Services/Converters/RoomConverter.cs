@@ -13,17 +13,20 @@ namespace Services.Converters
         private readonly IEntityViewModelConverter<RoomCategoryViewModel, RoomCategory> categoryConverter;
         private readonly IEntityViewModelConverter<CommodityViewModel, Commodity> commodityConverter;
         private readonly IEntityViewModelConverter<RoomPhotoViewModel, RoomPhoto> photoConverter;
+        private readonly IEntityViewModelConverter<LikeViewModel, Like> likeConverter;
 
         public RoomConverter(
             IEntityViewModelConverter<BookingViewModel, Booking> bookingConverter,
             IEntityViewModelConverter<RoomCategoryViewModel, RoomCategory> categoryConverter,
             IEntityViewModelConverter<CommodityViewModel, Commodity> commodityConverter,
-            IEntityViewModelConverter<RoomPhotoViewModel, RoomPhoto> photoConverter)
+            IEntityViewModelConverter<RoomPhotoViewModel, RoomPhoto> photoConverter,
+            IEntityViewModelConverter<LikeViewModel, Like> likeConverter)
         {
             this.bookingConverter = bookingConverter;
             this.categoryConverter = categoryConverter;
             this.commodityConverter = commodityConverter;
             this.photoConverter = photoConverter;
+            this.likeConverter = likeConverter;
         }
 
         public Room ConvertToStoredModel(RoomViewModel viewModel, bool withRelations = true)
@@ -45,7 +48,12 @@ namespace Services.Converters
                 Hotel = new Hotel() { Id = viewModel.Hotel?.Id ?? 0, Name = viewModel.Hotel?.Name },
                 HotelId = viewModel.Hotel?.Id ?? 0,
                 Square = viewModel.Square,
-                Photos = withRelations ? viewModel.Photos.Select(x => photoConverter.ConvertToStoredModel(x)).ToList() : new List<RoomPhoto>(),
+                Photos = withRelations 
+                    ? viewModel.Photos.Select(x => photoConverter.ConvertToStoredModel(x)).ToList() 
+                    : new List<RoomPhoto>(),
+                Likes = withRelations
+                    ? viewModel.Likes.Select(x => likeConverter.ConvertToStoredModel(x)).ToList()
+                    : new List<Like>(),
             };
 
             result.Commodities = withRelations
@@ -80,7 +88,12 @@ namespace Services.Converters
                 Description = dbModel.Description,
                 Hotel = new HotelViewModel() { Id = dbModel.Hotel?.Id ?? 0, Name = dbModel.Hotel?.Name },
                 Square = dbModel.Square,
-                Photos = withRelations ? dbModel.Photos.Select(x => photoConverter.ConvertToViewModel(x)).ToList() : new List<RoomPhotoViewModel>(),
+                Photos = withRelations 
+                    ? dbModel.Photos.Select(x => photoConverter.ConvertToViewModel(x)).ToList() 
+                    : new List<RoomPhotoViewModel>(),
+                Likes = withRelations
+                    ? dbModel.Likes.Select(x => likeConverter.ConvertToViewModel(x)).ToList()
+                    : new List<LikeViewModel>(),
             };
 
             result.Commodities = withRelations

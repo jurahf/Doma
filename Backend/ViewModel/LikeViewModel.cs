@@ -10,7 +10,7 @@ namespace ViewModel
 
         public DateTime Date { get; set; }
 
-        public HotelViewModel Hotel { get; set; }
+        public RoomViewModel Room { get; set; }
 
         public UserViewModel User { get; set; }
     }

@@ -9,7 +9,7 @@ namespace Doma.RemoteServices.ServiceDeclarations
 {
     public interface ILikeRemoteService : IRemoteService<LikeViewModel>
     {
-        Task<List<LikeViewModel>> GetByHotel(int hotelId);
+        Task<List<LikeViewModel>> GetByRoom(int roomId);
 
         Task<List<LikeViewModel>> GetByUser(int userId);
     }

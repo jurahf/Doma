@@ -8,7 +8,7 @@ namespace Services.ServiceDeclaration
 {
     public interface ILikeService : IEntityService<LikeViewModel>
     {
-        Task<List<LikeViewModel>> LikesByHotel(int hotelId);
+        Task<List<LikeViewModel>> LikesByRoom(int roomId);
 
         Task<List<LikeViewModel>> LikesByUser(int userId);
     }

@@ -25,13 +25,14 @@ namespace Repositories
         {
             return set
                 .Include(x => x.User)
-                .Include(x => x.Hotel);
+                .Include(x => x.Room)
+                    .ThenInclude(x => x.Hotel);
         }
 
-        public async Task<List<Like>> LikesByHotel(int hotelId)
+        public async Task<List<Like>> LikesByRoom(int roomId)
         {
             return await Fetch(DefaultOrder(dbContext.Likes)
-                .Where(x => x.Hotel.Id == hotelId))
+                .Where(x => x.Room.Id == roomId))
                 .ToListAsync();
         }
 

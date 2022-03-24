@@ -13,7 +13,6 @@ namespace StoredModel
             Rooms = new HashSet<Room>();
             Employees = new HashSet<Employee>();
             HotelOptions = new HashSet<HotelHotelOption>();
-            Likes = new HashSet<Like>();
         }
 
         public int Id { get; set; }
@@ -42,7 +41,5 @@ namespace StoredModel
         public ICollection<Employee> Employees { get; set; }
 
         public ICollection<HotelHotelOption> HotelOptions { get; set; }
-
-        public ICollection<Like> Likes { get; set; }
     }
 }

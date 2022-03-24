@@ -22,10 +22,10 @@ namespace Doma.RemoteServices
         }
 
 
-        public async Task<List<LikeViewModel>> GetByHotel(int hotelId)
+        public async Task<List<LikeViewModel>> GetByRoom(int roomId)
         {
             return await requestProvider.GetAsync<List<LikeViewModel>>(
-                $"{backendUri}/{ControllerPath}/GetByHotel?hotelId={hotelId}",
+                $"{backendUri}/{ControllerPath}/GetByRoom?roomId={roomId}",
                 userProvider.Token);
         }
 

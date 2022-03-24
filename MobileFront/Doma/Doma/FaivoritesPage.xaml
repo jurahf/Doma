@@ -1,14 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Doma.FaivoritesPage"
-             Title="Избранное"
-             IconImageSource="favorite.png">
+<doma:BaseViewWithAuth      
+        xmlns:doma="clr-namespace:Doma"
+        xmlns="http://xamarin.com/schemas/2014/forms"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        x:Class="Doma.FaivoritesPage"
+        x:Name="PageInstance"
+        Title="Избранное"
+        IconImageSource="favorite.png">
 
-    <StackLayout>
-        <Frame BackgroundColor="Transparent" Padding="24" CornerRadius="0">
-            <Label Text="Избранное" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"></Label>
-        </Frame>
+
+    <StackLayout x:Name="mainContent">
+
+        <ListView
+                BindingContext="{Binding Source={x:Reference PageInstance}}"
+                x:Name="MyListView"
+                ItemsSource="{Binding likes}"
+                ItemTapped="Handle_ItemTapped"
+                CachingStrategy="RecycleElement"
+                RowHeight="150">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame Padding="20, 10, 20, 10" 
+                               Margin="0, 0, 0, 10"
+                               BackgroundColor="white"
+                               CornerRadius="10">
+
+                            <StackLayout Orientation="Horizontal">
+                                <StackLayout>
+                                    <Image BackgroundColor="LightGray" Source="{Binding MainPhoto}" HeightRequest="80" WidthRequest="100"></Image>
+                                    <Label HorizontalOptions="CenterAndExpand" FontSize="16" TextColor="Black" Text="{Binding CostPerDay, StringFormat='{0} р/д'}"></Label>
+                                </StackLayout>
+                                <StackLayout>
+                                    <Label Text="{Binding Hotel.Name}" />
+                                    <Label Text="{Binding Hotel.Description}" />
+                                </StackLayout>
+                            </StackLayout>
+
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
     </StackLayout>
     
-</ContentPage>
+</doma:BaseViewWithAuth>

@@ -1,4 +1,5 @@
-﻿using Doma.ControllerParameters;
+﻿using Doma.Authorization;
+using Doma.ControllerParameters;
 using Doma.RemoteServices.ServiceDeclarations;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ namespace Doma
         private readonly ICityRemoteService cityService;
         private readonly IRoomRemoteService roomService;
         private readonly IHotelRemoteService hotelService;
+        private readonly ILikeRemoteService likeService;
+        private readonly ICurrentUserProvider userProvider;
 
         private CityViewModel selectedCity = null;
         private List<CityViewModel> cityAutocompleteData = new List<CityViewModel>();
@@ -30,11 +33,15 @@ namespace Doma
         public SearchPage(
             IRoomRemoteService roomService,
             ICityRemoteService cityService,
-            IHotelRemoteService hotelService)
+            IHotelRemoteService hotelService,
+            ILikeRemoteService likeService,
+            ICurrentUserProvider userProvider)
         {
             this.roomService = roomService;
             this.cityService = cityService;
             this.hotelService = hotelService;
+            this.likeService = likeService;
+            this.userProvider = userProvider;
 
             InitializeComponent();
 
@@ -275,7 +282,7 @@ namespace Doma
             };
 
             List<RoomViewModel> results = await roomService.SearchRooms(filter);
-            await this.Navigation.PushAsync(new SearchResultListPage(results, filter, hotelService));
+            await this.Navigation.PushAsync(new SearchResultListPage(results, filter, hotelService, likeService, userProvider));
         }
     }
 }

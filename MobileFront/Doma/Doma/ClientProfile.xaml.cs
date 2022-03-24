@@ -11,48 +11,22 @@ using Xamarin.Forms.Xaml;
 namespace Doma
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ClientProfile : ContentPage
+    public partial class ClientProfile : BaseViewWithAuth
     {
-        private readonly ICurrentUserProvider userProvider;
         private UserViewModel user;
 
         public ClientProfile(ICurrentUserProvider userProvider)
+            : base(userProvider)
         {
             InitializeComponent();
-
-            this.userProvider = userProvider;
         }
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            HideView();
-
-            if (!userProvider.IsAuthenticated)
-            {
-                var loginOrRegisterPage = new LoginTabbedPage(userProvider);
-                Navigation.PushAsync(loginOrRegisterPage);
-                loginOrRegisterPage.Disappearing += (s, a) =>
-                {
-                    if (userProvider.IsAuthenticated)
-                    {
-                        FillView();
-                    }
-                };
-            }
-            else
-            {
-                FillView();
-            }
-        }
-
-        private void FillView()
+        protected override void ShowFilledView()
         {
             user = userProvider.CurrentUser;
         }
 
-        private void HideView()
+        protected override void ShowNotAuthView()
         {
         }
 

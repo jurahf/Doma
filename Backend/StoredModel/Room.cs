@@ -11,6 +11,7 @@ namespace StoredModel
             Photos = new HashSet<RoomPhoto>();
             Commodities = new HashSet<RoomCommodity>();
             Bookings = new HashSet<Booking>();
+            Likes = new HashSet<Like>();
         }
 
         public int Id { get; set; }
@@ -38,5 +39,7 @@ namespace StoredModel
         public ICollection<RoomCommodity> Commodities { get; set; }
 
         public ICollection<Booking> Bookings { get; set; }
+
+        public ICollection<Like> Likes { get; set; }
     }
 }

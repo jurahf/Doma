@@ -23,14 +23,27 @@ namespace Doma
                 new SearchPage(
                     serviceProvider.GetService<IRoomRemoteService>(),
                     serviceProvider.GetService<ICityRemoteService>(),
-                    serviceProvider.GetService<IHotelRemoteService>()
+                    serviceProvider.GetService<IHotelRemoteService>(),
+                    serviceProvider.GetService<ILikeRemoteService>(),
+                    serviceProvider.GetService<ICurrentUserProvider>()
                     ));
             searchPages.Title = "Поиск";
             searchPages.IconImageSource = "search.png";
             Children.Add(searchPages);
 
 
-            Children.Add(new FaivoritesPage());
+            NavigationPage faivoritesPages = new NavigationPage(
+                new FaivoritesPage(
+                    serviceProvider.GetService<ICurrentUserProvider>(),
+                    serviceProvider.GetService<ILikeRemoteService>(),
+                    serviceProvider.GetService<IHotelRemoteService>(),
+                    serviceProvider.GetService<IRoomRemoteService>()
+                ));
+            faivoritesPages.Title = "Избранное";
+            faivoritesPages.IconImageSource = "favorite.png";
+            Children.Add(faivoritesPages);
+
+
             Children.Add(new ClientBookingList());
             Children.Add(new Support());
 

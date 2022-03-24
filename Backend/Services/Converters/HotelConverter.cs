@@ -13,20 +13,17 @@ namespace Services.Converters
         private readonly IEntityViewModelConverter<EmployeeViewModel, Employee> employeeConverter;
         private readonly IEntityViewModelConverter<RoomViewModel, Room> roomConverter;
         private readonly IEntityViewModelConverter<HotelOptionViewModel, HotelOption> optionConverter;
-        private readonly IEntityViewModelConverter<LikeViewModel, Like> likeConverter;
 
         public HotelConverter(
             IEntityViewModelConverter<FeedbackViewModel, Feedback> feedbackConverter,
             IEntityViewModelConverter<EmployeeViewModel, Employee> employeeConverter,
             IEntityViewModelConverter<RoomViewModel, Room> roomConverter,
-            IEntityViewModelConverter<HotelOptionViewModel, HotelOption> optionConverter,
-            IEntityViewModelConverter<LikeViewModel, Like> likeConverter)
+            IEntityViewModelConverter<HotelOptionViewModel, HotelOption> optionConverter)
         {
             this.feedbackConverter = feedbackConverter;
             this.employeeConverter = employeeConverter;
             this.roomConverter = roomConverter;
             this.optionConverter = optionConverter;
-            this.likeConverter = likeConverter;
         }
 
         public Hotel ConvertToStoredModel(HotelViewModel viewModel, bool withRelations = true)
@@ -55,9 +52,6 @@ namespace Services.Converters
                 Rooms = withRelations
                     ? viewModel.Rooms.Select(x => roomConverter.ConvertToStoredModel(x)).ToList()
                     : new List<Room>(),
-                Likes = withRelations
-                    ? viewModel.Likes.Select(x => likeConverter.ConvertToStoredModel(x)).ToList()
-                    : new List<Like>(),
             };
 
             result.HotelOptions = withRelations
@@ -100,9 +94,6 @@ namespace Services.Converters
                 Rooms = withRelations
                     ? dbModel.Rooms.Select(x => roomConverter.ConvertToViewModel(x)).ToList()
                     : new List<RoomViewModel>(),
-                Likes = withRelations
-                    ? dbModel.Likes.Select(x => likeConverter.ConvertToViewModel(x)).ToList()
-                    : new List<LikeViewModel>(),
             };
 
             result.HotelOptions = withRelations

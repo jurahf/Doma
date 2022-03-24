@@ -34,7 +34,9 @@ namespace Repositories
                 .Include(x => x.Rooms)
                     .ThenInclude(x => x.Commodities)
                 .Include(x => x.City)
-                .Include(x => x.Likes);
+                //.Include(x => x.Rooms)
+                //    .ThenInclude(x => x.Likes)
+                    ;
         }
     }
 }
