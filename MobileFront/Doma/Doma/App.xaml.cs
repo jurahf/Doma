@@ -30,7 +30,7 @@ namespace Doma
             services.AddSingleton<IAuthRemoteService, AuthRemoteService>();
             services.AddSingleton<ICurrentUserProvider, CurrentUserProvider>();
 
-#if DEBUG
+#if !DEBUG
             services.AddSingleton<ICityRemoteService, CityFakeService>();
             services.AddSingleton<IRoomRemoteService, RoomFakeService>();
             services.AddSingleton<IHotelRemoteService, HotelFakeService>();
@@ -40,6 +40,7 @@ namespace Doma
             services.AddSingleton<ICityRemoteService, CityRemoteService>();
             services.AddSingleton<IRoomRemoteService, RoomRemoteService>();
             services.AddSingleton<IHotelRemoteService, HotelRemoteService>();
+            services.AddSingleton<ILikeRemoteService, LikeRemoteService>();
 #endif
 
             serviceProvider = services.BuildServiceProvider();

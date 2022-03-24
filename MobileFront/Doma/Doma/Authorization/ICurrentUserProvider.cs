@@ -13,6 +13,8 @@ namespace Doma.Authorization
 
         UserViewModel CurrentUser { get; }
 
+        string Token { get; }
+
         Task<LoginError> TryLogin(string login, string password);
 
         Task<RegisterError> TryRegistration(string login, string password, string name, UserType type);

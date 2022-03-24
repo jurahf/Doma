@@ -14,19 +14,22 @@ namespace Services.Converters
         private readonly IEntityViewModelConverter<ChatMessageViewModel, ChatMessage> messageConverter;
         private readonly IEntityViewModelConverter<NotificationViewModel, Notification> notificationConverter;
         private readonly IEntityViewModelConverter<SupportRequestViewModel, SupportRequest> supportRequestConverter;
+        private readonly IEntityViewModelConverter<LikeViewModel, Like> likeConverter;
 
         public UserConverter(
             IEntityViewModelConverter<BookingViewModel, Booking> bookingConverter,
             IEntityViewModelConverter<EmployeeViewModel, Employee> employeeConverter,
             IEntityViewModelConverter<ChatMessageViewModel, ChatMessage> messageConverter,
             IEntityViewModelConverter<NotificationViewModel, Notification> notificationConverter,
-            IEntityViewModelConverter<SupportRequestViewModel, SupportRequest> supportRequestConverter)
+            IEntityViewModelConverter<SupportRequestViewModel, SupportRequest> supportRequestConverter,
+            IEntityViewModelConverter<LikeViewModel, Like> likeConverter)
         {
             this.bookingConverter = bookingConverter;
             this.employeeConverter = employeeConverter;
             this.messageConverter = messageConverter;
             this.notificationConverter = notificationConverter;
             this.supportRequestConverter = supportRequestConverter;
+            this.likeConverter = likeConverter;
         }
 
         public User ConvertToStoredModel(UserViewModel viewModel, bool withRelations = true)
@@ -44,11 +47,11 @@ namespace Services.Converters
                 UserType = (StoredModel.Enums.UserType)(int)viewModel.UserType,
                 PasswordHash = viewModel.PasswordHash,
                 PhoneNumber = viewModel.PhoneNumber,
-                Bookings = withRelations 
-                    ? viewModel.Bookings.Select(x => bookingConverter.ConvertToStoredModel(x)).ToList() 
+                Bookings = withRelations
+                    ? viewModel.Bookings.Select(x => bookingConverter.ConvertToStoredModel(x)).ToList()
                     : new List<Booking>(),
                 Employees = withRelations
-                    ? viewModel.Employees.Select(x => employeeConverter.ConvertToStoredModel(x)).ToList() 
+                    ? viewModel.Employees.Select(x => employeeConverter.ConvertToStoredModel(x)).ToList()
                     : new List<Employee>(),
                 IncomingMessages = withRelations
                     ? viewModel.IncomingMessages.Select(x => messageConverter.ConvertToStoredModel(x)).ToList()
@@ -62,6 +65,9 @@ namespace Services.Converters
                 SupportRequests = withRelations
                     ? viewModel.SupportRequests.Select(x => supportRequestConverter.ConvertToStoredModel(x)).ToList()
                     : new List<SupportRequest>(),
+                Likes = withRelations
+                    ? viewModel.Likes.Select(x => likeConverter.ConvertToStoredModel(x)).ToList()
+                    : new List<Like>(),
             };
         }
 
@@ -98,6 +104,9 @@ namespace Services.Converters
                 SupportRequests = withRelations
                     ? dbModel.SupportRequests.Select(x => supportRequestConverter.ConvertToViewModel(x)).ToList()
                     : new List<SupportRequestViewModel>(),
+                Likes = withRelations
+                    ? dbModel.Likes.Select(x => likeConverter.ConvertToViewModel(x)).ToList()
+                    : new List<LikeViewModel>(),
             };
         }
     }

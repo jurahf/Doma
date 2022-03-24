@@ -9,6 +9,7 @@ namespace Services.Authorization
     public static class AuthorizationHelper
     {
         public const string UserTypeClaimName = "UserTypeCode";
+        public const string UserId = "UserId";
         public const string HeaderName = "Authorization";
         public const string Bearer = "Bearer";
         public const string SecurityKey = "0d5b3235a8b403c3dab9c3f4f65c07fcalskd234n1k41230";

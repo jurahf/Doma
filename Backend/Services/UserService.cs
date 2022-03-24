@@ -69,6 +69,7 @@ namespace Services
                 new Claim(type:ClaimTypes.NameIdentifier, user.Email),
                 new Claim(type:ClaimTypes.Email, user.Email),
                 new Claim(type:ClaimTypes.Name, user.Name),
+                new Claim(type:AuthorizationHelper.UserId, user.Id.ToString()),
                 new Claim(type:AuthorizationHelper.UserTypeClaimName, ((int)user.UserType).ToString()),
             };
 

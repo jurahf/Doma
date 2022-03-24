@@ -132,6 +132,7 @@ namespace BookingApi
             services.AddScoped<IFeedbackRepository, FeedbackRepository>();
             services.AddScoped<IHotelOptionRepository, HotelOptionRepository>();
             services.AddScoped<IHotelRepository, HotelRepository>();
+            services.AddScoped<ILikeRepository, LikeRepository>();
             services.AddScoped<INotificationRepository, NotificationRepository>();
             services.AddScoped<IRoomCategoryRepository, RoomCategoryRepository>();
             services.AddScoped<IRoomPhotoRepository, RoomPhotoRepository>();
@@ -147,6 +148,7 @@ namespace BookingApi
             services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddScoped<IHotelOptionService, HotelOptionService>();
             services.AddScoped<IHotelService, HotelService>();
+            services.AddScoped<ILikeService, LikeService>();
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IRoomCategoryService, RoomCategoryService>();
             services.AddScoped<IRoomPhotoService, RoomPhotoService>();
@@ -163,6 +165,7 @@ namespace BookingApi
             services.AddScoped<IEntityViewModelConverter<FeedbackViewModel, Feedback>, FeedbackConverter>();
             services.AddScoped<IEntityViewModelConverter<HotelOptionViewModel, HotelOption>, HotelOptionConverter>();
             services.AddScoped<IEntityViewModelConverter<HotelViewModel, Hotel>, HotelConverter>();
+            services.AddScoped<IEntityViewModelConverter<LikeViewModel, Like>, LikeConverter>();
             services.AddScoped<IEntityViewModelConverter<NotificationViewModel, Notification>, NotificationConverter>();
             services.AddScoped<IEntityViewModelConverter<RoomCategoryViewModel, RoomCategory>, RoomCategoryConverter>();
             services.AddScoped<IEntityViewModelConverter<RoomPhotoViewModel, RoomPhoto>, RoomPhotoConverter>();

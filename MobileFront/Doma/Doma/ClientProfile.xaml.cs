@@ -37,20 +37,19 @@ namespace Doma
                 {
                     if (userProvider.IsAuthenticated)
                     {
-                        user = userProvider.CurrentUser;
                         FillView();
                     }
                 };
             }
             else
             {
-                user = userProvider.CurrentUser;
                 FillView();
             }
         }
 
         private void FillView()
         {
+            user = userProvider.CurrentUser;
         }
 
         private void HideView()

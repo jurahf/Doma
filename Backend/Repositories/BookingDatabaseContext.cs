@@ -29,6 +29,8 @@ namespace Repositories
 
         public DbSet<HotelHotelOption> HotelHotelOptions { get; set; }
 
+        public DbSet<Like> Likes { get; set; }
+
         public DbSet<Notification> Notifications { get; set; }
 
         public DbSet<Room> Rooms { get; set; }
@@ -70,6 +72,7 @@ namespace Repositories
             modelBuilder.ApplyConfiguration<Hotel>(new HotelConfiguration());
             modelBuilder.ApplyConfiguration<HotelOption>(new HotelOptionConfiguration());
             modelBuilder.ApplyConfiguration<HotelHotelOption>(new HotelHotelOptionConfiguration());
+            modelBuilder.ApplyConfiguration<Like>(new LikeConfiguration());
             modelBuilder.ApplyConfiguration<Notification>(new NotificationConfiguration());
             modelBuilder.ApplyConfiguration<Room>(new RoomConfiguration());
             modelBuilder.ApplyConfiguration<RoomCategory>(new RoomCategoryConfiguration());

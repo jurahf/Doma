@@ -15,6 +15,7 @@ namespace ViewModel
             OutcomingMessages = new List<ChatMessageViewModel>();
             Notifications = new List<NotificationViewModel>();
             SupportRequests = new List<SupportRequestViewModel>();
+            Likes = new List<LikeViewModel>();
         }
 
         public int Id { get; set; }
@@ -44,5 +45,7 @@ namespace ViewModel
         public List<NotificationViewModel> Notifications { get; set; }
 
         public List<SupportRequestViewModel> SupportRequests { get; set; }
+
+        public List<LikeViewModel> Likes { get; set; }
     }
 }

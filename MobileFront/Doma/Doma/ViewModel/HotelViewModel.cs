@@ -13,6 +13,7 @@ namespace ViewModel
             Rooms = new List<RoomViewModel>();
             Employees = new List<EmployeeViewModel>();
             HotelOptions = new List<HotelOptionViewModel>();
+            Likes = new List<LikeViewModel>();
         }
 
         public int Id { get; set; }
@@ -40,5 +41,7 @@ namespace ViewModel
         public List<EmployeeViewModel> Employees { get; set; }
 
         public List<HotelOptionViewModel> HotelOptions { get; set; }
+
+        public List<LikeViewModel> Likes { get; set; }
     }
 }

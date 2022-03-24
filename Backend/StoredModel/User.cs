@@ -15,6 +15,7 @@ namespace StoredModel
             OutcomingMessages = new HashSet<ChatMessage>();
             Notifications = new HashSet<Notification>();
             SupportRequests = new HashSet<SupportRequest>();
+            Likes = new HashSet<Like>();
         }
 
         public int Id { get; set; } 
@@ -46,5 +47,7 @@ namespace StoredModel
         public ICollection<Notification> Notifications { get; set; }
 
         public ICollection<SupportRequest> SupportRequests { get; set; }
+
+        public ICollection<Like> Likes { get; set; }
     }
 }

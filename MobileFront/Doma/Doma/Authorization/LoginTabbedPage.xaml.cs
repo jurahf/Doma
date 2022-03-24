@@ -18,7 +18,7 @@ namespace Doma
             InitializeComponent();
 
             Children.Add(new LoginPage(userProvider));
-            Children.Add(new RegistrationPage());
+            Children.Add(new RegistrationPage(userProvider));
         }
     }
 }
