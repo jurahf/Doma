@@ -12,13 +12,11 @@ namespace Doma.RemoteServices
     public class LikeRemoteService : BaseRemoteService<LikeViewModel>, ILikeRemoteService
     {
         protected override string ControllerPath => "api/like";
-        private readonly ICurrentUserProvider userProvider;
 
 
         public LikeRemoteService(IRequestProvider requestProvider, ICurrentUserProvider userProvider)
-            : base(requestProvider)
+            : base(requestProvider, userProvider)
         {
-            this.userProvider = userProvider;
         }
 
 

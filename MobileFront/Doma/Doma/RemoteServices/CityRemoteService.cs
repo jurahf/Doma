@@ -1,4 +1,5 @@
-﻿using Doma.RemoteServices.Common;
+﻿using Doma.Authorization;
+using Doma.RemoteServices.Common;
 using Doma.RemoteServices.ServiceDeclarations;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,8 @@ namespace Doma.RemoteServices
         protected override string ControllerPath => "api/city";
 
 
-        public CityRemoteService(IRequestProvider requestProvider)
-            : base(requestProvider)
+        public CityRemoteService(IRequestProvider requestProvider, ICurrentUserProvider userProvider)
+            : base(requestProvider, userProvider)
         {
         }
 

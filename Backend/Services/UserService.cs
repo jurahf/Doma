@@ -69,8 +69,9 @@ namespace Services
                 new Claim(type:ClaimTypes.NameIdentifier, user.Email),
                 new Claim(type:ClaimTypes.Email, user.Email),
                 new Claim(type:ClaimTypes.Name, user.Name),
-                new Claim(type:AuthorizationHelper.UserId, user.Id.ToString()),
+                new Claim(type:AuthorizationHelper.UserIdClaimName, user.Id.ToString()),
                 new Claim(type:AuthorizationHelper.UserTypeClaimName, ((int)user.UserType).ToString()),
+                new Claim(type:AuthorizationHelper.ExpirationDateClaimName, DateTime.UtcNow.AddMinutes(AuthorizationHelper.TokenExpiresTimeMinutes).ToString("yyyy-MM-dd-HH-mm-ss")),
             };
 
             // Генерируем JWT.
@@ -78,7 +79,7 @@ namespace Services
                 issuer: "DomaApp",
                 audience: "DomaAppClient",
                 claims: claims,
-                expires: null, // DateTime.Now.AddMinutes(AuthorizationHelper.TokenExpiresTimeMinutes),
+                expires: DateTime.Now.AddMinutes(AuthorizationHelper.TokenExpiresTimeMinutes),
                 signingCredentials: new SigningCredentials(
                         signingEncodingKey.GetKey(),
                         signingEncodingKey.SigningAlgorithm)

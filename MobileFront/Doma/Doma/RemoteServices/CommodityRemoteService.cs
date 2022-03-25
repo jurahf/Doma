@@ -1,4 +1,5 @@
-﻿using Doma.RemoteServices.Common;
+﻿using Doma.Authorization;
+using Doma.RemoteServices.Common;
 using Doma.RemoteServices.ServiceDeclarations;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,8 @@ namespace Doma.RemoteServices
     {
         protected override string ControllerPath => "api/commodity";
 
-        public CommodityRemoteService(IRequestProvider requestProvider)
-            : base(requestProvider)
+        public CommodityRemoteService(IRequestProvider requestProvider, ICurrentUserProvider userProvider)
+            : base(requestProvider, userProvider)
         {
         }
     }

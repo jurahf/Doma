@@ -42,5 +42,11 @@ namespace Repositories
                 .Where(x => x.User.Id == userId))
                 .ToListAsync();
         }
+
+        protected override void ReLoadRelations(Like entity)
+        {
+            entity.Room = null;
+            entity.User = null;
+        }
     }
 }

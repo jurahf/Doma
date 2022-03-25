@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Doma
@@ -16,19 +17,21 @@ namespace Doma
         }
 
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
 
+            await Task.Delay(300); // без этого нельзя применять навигацию в событии OnAppearing (будет OutOfRangeException)
+
             ShowNotAuthView();
 
-            if (!userProvider.IsAuthenticated)
+            if (!await userProvider.IsAuthenticated())
             {
                 var loginOrRegisterPage = new LoginTabbedPage(userProvider);
-                Navigation.PushAsync(loginOrRegisterPage);
-                loginOrRegisterPage.Disappearing += (s, a) =>
+                await Navigation.PushAsync(loginOrRegisterPage);
+                loginOrRegisterPage.Disappearing += async (s, a) =>
                 {
-                    if (userProvider.IsAuthenticated)
+                    if (await userProvider.IsAuthenticated())
                     {
                         ShowFilledView();
                     }

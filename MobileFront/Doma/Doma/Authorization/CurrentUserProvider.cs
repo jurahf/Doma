@@ -3,6 +3,7 @@ using Doma.RemoteServices.ServiceDeclarations;
 using Doma.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace Doma.Authorization
         protected readonly string basePath;
         protected readonly string storageFileName;
         protected object lockObject = new object();
+        private bool isInited = false;
 
 
         public CurrentUserProvider(IAuthRemoteService authRemoteService)
@@ -29,19 +31,18 @@ namespace Doma.Authorization
             basePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             storageFileName = $"Token.txt";
 
-            try
-            {
-                Token = LoadToken();
-                LoadUserByToken();
-            }
-            catch
-            {
-                Token = null;
-                CurrentUser = null;
-            }
+            Init();
         }
 
-        public bool IsAuthenticated { get { return CurrentUser != null; } }
+        public async Task<bool> IsAuthenticated()
+        { 
+            while (!isInited) 
+            { 
+                await Task.Delay(100); 
+            }
+
+            return CurrentUser != null; 
+        }
 
         public UserViewModel CurrentUser { get; private set; }
 
@@ -59,7 +60,7 @@ namespace Doma.Authorization
             {
                 LoginResult result = await authRemoteService.Login(new AuthenticationRequest()
                 {
-                    Email = login, 
+                    Email = login.Trim(), 
                     Password = password
                 });
 
@@ -67,13 +68,14 @@ namespace Doma.Authorization
                 {
                     Token = result.Token;
                     CurrentUser = await authRemoteService.GetUserByIdentityName(login, Token);
-                    SaveToken(Token);
+                    SaveTokenFile(Token);
                 }
 
                 return result.ErrorCode;
             }
             catch (Exception ex)
             {
+                Logout();
                 return LoginError.UnexpectedError;
             }
         }
@@ -89,7 +91,7 @@ namespace Doma.Authorization
             {
                 RegisterResult result = await authRemoteService.Register(new RegistrationRequest()
                 {
-                    Email = login,
+                    Email = login.Trim(),
                     Password = password,
                     Name = name,
                     UserType = type
@@ -103,7 +105,14 @@ namespace Doma.Authorization
             }
         }
 
-        private void SaveToken(string token)
+        private void Logout()
+        {
+            Token = null;
+            CurrentUser = null;
+            RemoveTokenFile();
+        }
+
+        private void SaveTokenFile(string token)
         {
             try
             {
@@ -119,7 +128,24 @@ namespace Doma.Authorization
             }
         }
 
-        private string LoadToken()
+        private void RemoveTokenFile()
+        {
+            try
+            {
+                lock (lockObject)
+                {
+                    string fileName = Path.Combine(basePath, storageFileName);
+
+                    if (File.Exists(fileName))
+                        File.Delete(fileName);
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private string LoadTokenFromFile()
         {
             try
             {
@@ -142,14 +168,39 @@ namespace Doma.Authorization
             }
         }
 
-        private async void LoadUserByToken()
+        private async void Init()
         {
-            if (!string.IsNullOrEmpty(Token))
+            try
             {
-                var decodedToken = DecodeToken(Token);
-                string login = GetClaim(decodedToken, ClaimTypes.NameIdentifier);
-                CurrentUser = await authRemoteService.GetUserByIdentityName(login, Token);
+                Token = LoadTokenFromFile();
+
+                if (!string.IsNullOrEmpty(Token))
+                {
+                    var decodedToken = DecodeToken(Token);
+                    DateTime.TryParseExact(
+                        GetClaim(decodedToken, "ExpirationDate"), 
+                        "yyyy-MM-dd-HH-mm-ss",
+                        CultureInfo.InvariantCulture, 
+                        DateTimeStyles.None,
+                        out DateTime expirationDate);
+
+                    if (DateTime.UtcNow <= expirationDate)
+                    {
+                        string login = GetClaim(decodedToken, ClaimTypes.NameIdentifier);
+                        CurrentUser = await authRemoteService.GetUserByIdentityName(login, Token);
+                    }
+                    else
+                    {
+                        Logout(); // TODO: перелогиниться по логину и паролю
+                    }
+                }
             }
+            catch
+            {
+                Logout();
+            }
+
+            isInited = true;
         }
 
         private JwtSecurityToken DecodeToken(string token)

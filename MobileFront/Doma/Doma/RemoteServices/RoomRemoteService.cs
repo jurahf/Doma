@@ -1,4 +1,5 @@
-﻿using Doma.ControllerParameters;
+﻿using Doma.Authorization;
+using Doma.ControllerParameters;
 using Doma.RemoteServices.Common;
 using Doma.RemoteServices.ServiceDeclarations;
 using System;
@@ -13,8 +14,8 @@ namespace Doma.RemoteServices
     {
         protected override string ControllerPath => "api/room";
 
-        public RoomRemoteService(IRequestProvider requestProvider)
-            : base(requestProvider)
+        public RoomRemoteService(IRequestProvider requestProvider, ICurrentUserProvider userProvider)
+            : base(requestProvider, userProvider)
         {
         }
 

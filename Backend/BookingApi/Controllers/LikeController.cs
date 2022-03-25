@@ -42,7 +42,7 @@ namespace BookingApi.Controllers
             if (userId <= 0)
                 throw new ArgumentException();
 
-            string userIdStr = AuthorizationHelper.GetClaim(Request, AuthorizationHelper.UserId);
+            string userIdStr = AuthorizationHelper.GetClaim(Request, AuthorizationHelper.UserIdClaimName);
             if (!int.TryParse(userIdStr, out int currentUserId) || userId != currentUserId)    // то есть можно посмотреть только свое избранное
                 throw new ArgumentException();
 

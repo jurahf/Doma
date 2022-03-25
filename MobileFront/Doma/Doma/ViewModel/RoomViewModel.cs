@@ -33,7 +33,7 @@ namespace ViewModel
         {
             get
             {
-                return string.Join(", ", Commodities.Select(x => x.Name));
+                return string.Join(", ", Commodities.Where(x => x != null).Select(x => x.Name));
             }
         }
 

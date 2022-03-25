@@ -9,7 +9,7 @@ namespace Doma.Authorization
 {
     public interface ICurrentUserProvider
     {
-        bool IsAuthenticated { get; }
+        Task<bool> IsAuthenticated();
 
         UserViewModel CurrentUser { get; }
 

@@ -13,7 +13,7 @@ namespace Doma.RemoteServices
     public class AuthRemoteService : IAuthRemoteService
     {
         private readonly IRequestProvider requestProvider;
-        protected const string backendUri = "https://doma-booking.ru";
+        protected const string backendUri = GlobalSettings.BackendUri;
         private string ControllerPath => "api/auth";
 
 
@@ -34,7 +34,7 @@ namespace Doma.RemoteServices
 
         public async Task<UserViewModel> GetUserByIdentityName(string login, string token)
         {
-            return await requestProvider.GetAsync<UserViewModel>($"{backendUri}/api/user/GetByIdentityName?identityName=login", token);
+            return await requestProvider.GetAsync<UserViewModel>($"{backendUri}/api/user/GetByIdentityName?identityName={login}", token);
         }
     }
 }

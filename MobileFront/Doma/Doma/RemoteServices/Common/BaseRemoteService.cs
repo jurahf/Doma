@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Doma.Authorization;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,15 +9,17 @@ namespace Doma.RemoteServices.Common
 {
     public abstract class BaseRemoteService<T> : IRemoteService<T> where T : IViewModel
     {
-        protected const string backendUri = "https://doma-booking.ru"; // "https://u1627485.plsk.regruhosting.ru";
+        protected const string backendUri = GlobalSettings.BackendUri;
         protected readonly IRequestProvider requestProvider;
-        
+        protected readonly ICurrentUserProvider userProvider;
+
         protected abstract string ControllerPath { get; }
 
 
-        public BaseRemoteService(IRequestProvider requestProvider)
+        public BaseRemoteService(IRequestProvider requestProvider, ICurrentUserProvider userProvider)
         {
             this.requestProvider = requestProvider;
+            this.userProvider = userProvider;
         }
 
 
@@ -45,21 +48,21 @@ namespace Doma.RemoteServices.Common
         {
             string uri = $"{backendUri}/{ControllerPath}";
 
-            return await requestProvider.PostAsync<int>(uri, value);
+            return await requestProvider.PostAsync<int>(uri, value, userProvider.Token);
         }
 
         public virtual async Task Update(int id, T value)
         {
             string uri = $"{backendUri}/{ControllerPath}/{id}";
 
-            await requestProvider.PutAsync<int>(uri, value);
+            await requestProvider.PutAsync<int>(uri, value, userProvider.Token);
         }
 
         public virtual async Task Delete(int id)
         {
             string uri = $"{backendUri}/{ControllerPath}/{id}";
 
-            await requestProvider.DeleteAsync(uri);
+            await requestProvider.DeleteAsync(uri, userProvider.Token);
         }
 
     }

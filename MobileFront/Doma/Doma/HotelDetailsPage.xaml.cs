@@ -25,7 +25,9 @@ namespace Doma
 
         private RoomViewModel room { get; set; }
 
-        private string likeButtonText { get; set; }
+        public string LikeButtonTitle { get; set; }
+
+        private bool inited = false;
 
         public HotelDetailsPage(
             HotelViewModel hotel,
@@ -40,25 +42,35 @@ namespace Doma
             this.userProvider = userProvider;
 
             InitializeComponent();
+        }
 
-            UpdateLikeButtonText();
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
 
-            roomsListView.ItemsSource = hotel.Rooms;
-            Title = hotel.Name;
-            AllPhotos = hotel.Rooms.SelectMany(x => x.Photos).ToList();
-            carousel.ItemsSource = AllPhotos;
-
-            Device.StartTimer(TimeSpan.FromSeconds(5), () =>
+            if (!inited)
             {
-                carousel.Position = (carousel.Position + 1) % AllPhotos.Count;
+                roomsListView.ItemsSource = hotel.Rooms;
+                Title = hotel.Name;
+                AllPhotos = hotel.Rooms.SelectMany(x => x.Photos).ToList();
+                carousel.ItemsSource = AllPhotos;
 
-                return true;
-            });
+                Device.StartTimer(TimeSpan.FromSeconds(5), () =>
+                {
+                    carousel.Position = (carousel.Position + 1) % AllPhotos.Count;
+
+                    return true;
+                });
+            }
+
+            await UpdateLikeButtonText();
+
+            inited = true;
         }
 
         private async void btnLike_Clicked(object sender, EventArgs e)
         {
-            if (userProvider.IsAuthenticated)
+            if (await userProvider.IsAuthenticated())
             {
                 List<LikeViewModel> allUserLikes = await likeService.GetByUser(userProvider.CurrentUser.Id);
 
@@ -76,7 +88,7 @@ namespace Doma
                     });
                 }
 
-                UpdateLikeButtonText();
+                await UpdateLikeButtonText();
             }
             else
             {
@@ -84,16 +96,16 @@ namespace Doma
             }
         }
 
-        private void UpdateLikeButtonText()
+        private async Task UpdateLikeButtonText()
         {
-            if (userProvider.IsAuthenticated)
-            {
-                List<LikeViewModel> allUserLikes = likeService.GetByUser(userProvider.CurrentUser.Id).Result; // TODO: может не стоит каждый раз читать
-                if (allUserLikes.Any())
-                    btnLike.Text = "Убрать из избранного";
-            }
+            LikeButtonTitle = "В избранное";
 
-            btnLike.Text = "В избранное";
+            if (await userProvider.IsAuthenticated())
+            {
+                List<LikeViewModel> allUserLikes = await likeService.GetByUser(userProvider.CurrentUser.Id); // TODO: может не стоит каждый раз читать
+                if (allUserLikes.Any())
+                    LikeButtonTitle = "Убрать из избранного";
+            }
         }
 
     }

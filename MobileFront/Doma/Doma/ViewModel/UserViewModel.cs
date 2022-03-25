@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ViewModel.Enums;
 
 namespace ViewModel
 {
@@ -26,6 +27,8 @@ namespace ViewModel
         public string PasswordHash { get; set; }
 
         public string PhoneNumber { get; set; }
+
+        public UserType UserType { get; set; }
 
         public List<EmployeeViewModel> Employees { get; set; }
 

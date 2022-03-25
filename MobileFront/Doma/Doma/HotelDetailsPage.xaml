@@ -53,11 +53,12 @@
 
                 <Button x:Name="btnLike"
                         HorizontalOptions="Center" 
-                        Text="В избранное"
+                        BindingContext="{Binding Source={x:Reference PageInstance}}"
+                        Text="{Binding LikeButtonTitle}"
                         TextColor="White"
                         BackgroundColor="#d0365f"
                         Clicked="btnLike_Clicked"></Button>
-
+                
                 <ListView
                     BindingContext="{Binding Source={x:Reference PageInstance}}"
                     x:Name="roomsListView"
@@ -79,13 +80,14 @@
                                             <Label TextColor="Black" Text="{Binding AdultPlaces, StringFormat='{0} взрослых, '}"></Label>
                                             <Label TextColor="Black" Text="{Binding ChildPlaces, StringFormat='{0} детей'}"></Label>
                                         </StackLayout>
+                                        
                                         <Label TextColor="Black" Text="{Binding Description}"></Label>
                                         <Label TextColor="LimeGreen" Text="{Binding CommoditiesInline}"></Label>
+
                                         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                             <Label VerticalOptions="Center" TextColor="Black" FontSize="18" Text="{Binding CostPerDay, StringFormat='{0} р/д'}"></Label>
                                             <Button VerticalOptions="Center" HorizontalOptions="End" Text="Забронировать" TextColor="White" BackgroundColor="Black"></Button>
                                         </StackLayout>
-
                                     </StackLayout>
 
                                 </Frame>
