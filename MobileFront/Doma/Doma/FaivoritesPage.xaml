@@ -14,7 +14,7 @@
         <ListView
                 BindingContext="{Binding Source={x:Reference PageInstance}}"
                 x:Name="MyListView"
-                ItemsSource="{Binding likes}"
+                ItemsSource="{Binding rooms}"
                 ItemTapped="Handle_ItemTapped"
                 CachingStrategy="RecycleElement"
                 RowHeight="150">

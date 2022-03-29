@@ -54,7 +54,7 @@
                 <Button x:Name="btnLike"
                         HorizontalOptions="Center" 
                         BindingContext="{Binding Source={x:Reference PageInstance}}"
-                        Text="{Binding LikeButtonTitle}"
+                        Text="{Binding LikeButtonTitle, Mode=OneWay}"
                         TextColor="White"
                         BackgroundColor="#d0365f"
                         Clicked="btnLike_Clicked"></Button>

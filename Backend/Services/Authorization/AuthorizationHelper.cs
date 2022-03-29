@@ -14,7 +14,7 @@ namespace Services.Authorization
         public const string HeaderName = "Authorization";
         public const string Bearer = "Bearer";
         public const string SecurityKey = "0d5b3235a8b403c3dab9c3f4f65c07fcalskd234n1k41230";
-        public const int TokenExpiresTimeMinutes = 30;
+        public const int TokenExpiresTimeMinutes = 60 * 24 * 7;
 
         public static JwtSecurityToken GetToken(HttpRequest request)
         {

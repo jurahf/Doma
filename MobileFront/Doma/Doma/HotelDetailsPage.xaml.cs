@@ -25,7 +25,22 @@ namespace Doma
 
         private RoomViewModel room { get; set; }
 
-        public string LikeButtonTitle { get; set; }
+        private string likeButtonTitle;
+        public string LikeButtonTitle 
+        {
+            get
+            {
+                return likeButtonTitle;
+            }
+            set
+            {
+                if (likeButtonTitle == value)
+                    return;
+
+                likeButtonTitle = value;
+                OnPropertyChanged(nameof(LikeButtonTitle));
+            } 
+        }
 
         private bool inited = false;
 

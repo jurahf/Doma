@@ -23,5 +23,5 @@ Update-Database -Migration MigrationName
 Remove-Migration -project Repositories
 
 
-Скрипт по миграции (указываем первую непримененную миграцию)
+Скрипт по миграции (указываем последнюю примененную миграцию)
 script-migration -from HotelDescription -project Repositories

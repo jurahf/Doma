@@ -1,5 +1,6 @@
 ﻿using Doma.Authorization;
 using Doma.ControllerParameters;
+using Doma.RemoteServices.Common;
 using Doma.RemoteServices.ServiceDeclarations;
 using System;
 using System.Collections.Generic;
@@ -45,7 +46,7 @@ namespace Doma
 
             InitializeComponent();
 
-            cldDates.Culture = CultureInfo.GetCultureInfo("ru-RU");
+            cldDates.Culture = GlobalSettings.DefaultCulture;
             cldDates.MinimumDate = DateTime.Today;
 
             LoadData();
@@ -177,6 +178,7 @@ namespace Doma
             catch (Exception ex)
             {
                 await DisplayAlert("Ошибка", "Ошибка при загрузке данных. Проверьте ваше подключение к сети.", "Закрыть");
+
             }
         }
 

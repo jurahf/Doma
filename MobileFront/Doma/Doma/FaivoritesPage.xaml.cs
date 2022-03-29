@@ -38,7 +38,7 @@ namespace Doma
             var likes = await likeService.GetByUser(userProvider.CurrentUser.Id);
             rooms = likes.Select(x => x.Room).ToList();
 
-            MyListView.ItemsSource = likes;
+            MyListView.ItemsSource = rooms;
 
             mainContent.IsVisible = true;
         }

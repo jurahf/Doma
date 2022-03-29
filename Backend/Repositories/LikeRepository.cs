@@ -26,7 +26,9 @@ namespace Repositories
             return set
                 .Include(x => x.User)
                 .Include(x => x.Room)
-                    .ThenInclude(x => x.Hotel);
+                    .ThenInclude(x => x.Hotel)
+                .Include(x => x.Room)
+                    .ThenInclude(x => x.Photos);
         }
 
         public async Task<List<Like>> LikesByRoom(int roomId)
