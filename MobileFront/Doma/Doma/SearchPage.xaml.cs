@@ -166,6 +166,17 @@ namespace Doma
 
         private async Task LoadData()
         {
+            //Connectivity.ConnectivityChanged += (s, a) =>
+            //{
+            //    var connection = a.NetworkAccess;
+            //};
+            //var current = Connectivity.NetworkAccess;
+
+            //if (current == NetworkAccess.Internet)
+            //{
+            //    // Connection to internet is available
+            //}
+
             try
             {
                 SelectedStartDate = DateTime.Now;

@@ -4,13 +4,38 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="Doma.ClientProfile"
+    x:Name="PageInstance"
     Title="Аккаунт"
     IconImageSource="account.png">
 
-    <StackLayout>
-        <Frame BackgroundColor="Transparent" Padding="24" CornerRadius="0">
-            <Label Text="Профиль" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
-        </Frame>
+    <StackLayout Margin="20, 0, 20, 0" BindingContext="{Binding Source={x:Reference PageInstance}}">
+
+        <Label Text="{Binding User.Name}" TextColor="White" FontSize="Large"></Label>
+
+        <Label Text="{Binding User.Email, StringFormat='Email: {0}'}" TextColor="White" FontSize="Large"></Label>
+        
+        <Label Text="{Binding User.PhoneNumber, StringFormat='Телефон: {0}'}" TextColor="White" FontSize="Large"></Label>
+
+        <Label Text="{Binding User.UserTypeDescription}" TextColor="White" FontSize="Medium"></Label>
+
+        <!-- TODO: ссылки для изменения пароля -->
+        
+        <!--
+       
+        
+        для сотрудника
+
+        public List<EmployeeViewModel> Employees { get; set; }
+        
+        Предоставить доступ другому сотруднику
+        
+        
+        
+        
+        для клиента
+        
+        -->
+        
     </StackLayout>
 
 </doma:BaseViewWithAuth>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using ViewModel.Enums;
 
@@ -29,6 +30,32 @@ namespace ViewModel
         public string PhoneNumber { get; set; }
 
         public UserType UserType { get; set; }
+
+        public string UserTypeDescription
+        {
+            get
+            {
+                switch (UserType)
+                {
+                    case UserType.Client:
+                        return "Путешественник";
+                    case UserType.Hotel:
+                        if (Employees.Any(x => !string.IsNullOrEmpty(x?.Hotel?.Name)))
+                        {
+                            string hotels = string.Join(", ", Employees.Select(x => x?.Hotel?.Name));
+                            return $"Сотрудник {hotels}";
+                        }
+                        else
+                        {
+                            return "Арендодатель";
+                        }
+                    case UserType.Admin:
+                        return "Администратор Doma";
+                    default:
+                        return "-";
+                }
+            }
+        }
 
         public List<EmployeeViewModel> Employees { get; set; }
 

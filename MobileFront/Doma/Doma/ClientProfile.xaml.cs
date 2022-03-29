@@ -14,6 +14,18 @@ namespace Doma
     public partial class ClientProfile : BaseViewWithAuth
     {
         private UserViewModel user;
+        public UserViewModel User 
+        {
+            get { return user; }
+            set 
+            {
+                if (user != value)
+                {
+                    user = value;
+                    OnPropertyChanged(nameof(User));
+                }
+            }
+        }
 
         public ClientProfile(ICurrentUserProvider userProvider)
             : base(userProvider)
@@ -23,7 +35,7 @@ namespace Doma
 
         protected override void ShowFilledView()
         {
-            user = userProvider.CurrentUser;
+            User = userProvider.CurrentUser;
         }
 
         protected override void ShowNotAuthView()
