@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<doma:BaseViewWithAuth xmlns:doma="clr-namespace:Doma"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Doma.BookingRequest"
+            x:Name="PageInstance">
+    <ContentPage.Content>
+
+        <ScrollView>
+            <StackLayout x:Name="mainContent" BindingContext="{Binding Source={x:Reference PageInstance}}">
+            
+                <Label Text="{Binding Booking.Room.Hotel.Name}"
+                        HorizontalOptions="CenterAndExpand"
+                        TextColor="White"
+                        FontSize="Large"/>
+
+                <Label Text="{Binding Booking.Room.Hotel.Address}"
+                        HorizontalOptions="CenterAndExpand"
+                        TextColor="White"
+                        FontSize="Large"/>
+
+                <Label Text="{Binding Booking.Room.AdultPlaces, StringFormat='Мест для взрослых: {0}'}"
+                        HorizontalOptions="CenterAndExpand"
+                        TextColor="White"
+                        FontSize="Large"/>
+
+                <Label Text="{Binding Booking.Room.ChildPlaces, StringFormat='Мест для детей: {0}'}"
+                        HorizontalOptions="CenterAndExpand"
+                        TextColor="White"
+                        FontSize="Large"/>
+
+                <Label Text="{Binding Booking.StartDate, StringFormat='Заезд {0:dd.MM.yyyy}'}"
+                        HorizontalOptions="CenterAndExpand"
+                        TextColor="White"
+                        FontSize="Large"/>
+
+                <Label Text="{Binding Booking.EndDate, StringFormat='Выезд {0:dd.MM.yyyy}'}"
+                        HorizontalOptions="CenterAndExpand"
+                        TextColor="White"
+                        FontSize="Large"/>
+
+                <Label Text="{Binding Booking.Room.BookingNightsCount, StringFormat='({0} ночей)'}"
+                        HorizontalOptions="CenterAndExpand"
+                        TextColor="White"
+                        FontSize="Large"/>
+
+                <Label Text="{Binding Booking.Room.BookingAllTimeCost, StringFormat='{0} рублей'}"
+                        HorizontalOptions="CenterAndExpand"
+                        TextColor="White"
+                        FontSize="Large"/>
+
+                <Button x:Name="btnConfirm" 
+                    CornerRadius="100"
+                    Text="Подтвердить"
+                    Margin="20" 
+                    Padding="0"
+                    HeightRequest="48" 
+                    HorizontalOptions="FillAndExpand"
+                    BackgroundColor="#d0365f"
+                    TextColor="white"
+                    Clicked="btnConfirm_Clicked"></Button>
+
+                <Button x:Name="btnReject" 
+                    CornerRadius="100"
+                    Text="Отмена"
+                    Margin="20" 
+                    Padding="0"
+                    HeightRequest="48" 
+                    HorizontalOptions="FillAndExpand"
+                    BackgroundColor="White"
+                    TextColor="Black"
+                    Clicked="btnReject_Clicked"></Button>
+
+            </StackLayout>
+        </ScrollView>
+
+    </ContentPage.Content>
+</doma:BaseViewWithAuth>

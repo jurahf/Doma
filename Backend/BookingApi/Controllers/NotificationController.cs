@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Services.Authorization;
+using Services.Parameters;
 using Services.ServiceDeclaration;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ViewModel;
 
 namespace BookingApi.Controllers
@@ -11,9 +14,12 @@ namespace BookingApi.Controllers
     [ApiController]
     public class NotificationController : BaseEntityController<NotificationViewModel>
     {
+        private readonly INotificationService notificationService;
+
         public NotificationController(INotificationService service)
             : base(service)
         {
+            this.notificationService = service;
         }
 
         [Authorize]
@@ -33,5 +39,19 @@ namespace BookingApi.Controllers
         {
             return base.Get(limit, page);
         }
+
+        [HttpPost]
+        [Authorize]
+        [Route("CreateNewBookingEvent")]
+        public async Task<bool> CreateNewBookingEvent([FromBody] CreateNewBookingEventRequest data)
+        {
+            string userIdStr = AuthorizationHelper.GetClaim(Request, AuthorizationHelper.UserIdClaimName);
+            int.TryParse(userIdStr, out int userId);
+
+            await notificationService.CreateNewBookingEvent(data.BookingId, userId);
+
+            return true;
+        }
+
     }
 }

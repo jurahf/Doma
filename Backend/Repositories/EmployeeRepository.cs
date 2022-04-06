@@ -15,6 +15,14 @@ namespace Repositories
         {
         }
 
+        public List<Employee> GetByHotel(int hotelId)
+        {
+            return Fetch(
+                    DefaultOrder(dbContext.Employees)
+                    .Where(x => x.Hotel.Id == hotelId))
+                .ToList();
+        }
+
         protected override IQueryable<Employee> Fetch(IQueryable<Employee> set)
         {
             return set

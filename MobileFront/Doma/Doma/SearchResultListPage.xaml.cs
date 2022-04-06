@@ -19,7 +19,9 @@ namespace Doma
     {
         private readonly IHotelRemoteService hotelService;
         private readonly ILikeRemoteService likeService;
+        private readonly IBookingRemoteService bookingService;
         private readonly ICurrentUserProvider userProvider;
+        private readonly INotificationRemoteService notificationService;
         private SearchRoomFilter baseFilter;
 
         public List<RoomViewModel> SearchList { get; set; }
@@ -39,14 +41,21 @@ namespace Doma
             SearchRoomFilter baseFilter,
             IHotelRemoteService hotelService,
             ILikeRemoteService likeService,
+            IBookingRemoteService bookingService,
+            INotificationRemoteService notificationService,
             ICurrentUserProvider userProvider)
         {
             InitializeComponent();
+
+            foreach (var room in searchList)
+                SetParamsToRoom(baseFilter, room);
 
             this.SearchList = searchList;   // TODO: группировать по отелям
             this.baseFilter = baseFilter;
             this.hotelService = hotelService;
             this.likeService = likeService;
+            this.bookingService = bookingService;
+            this.notificationService = notificationService;
             this.userProvider = userProvider;
 
             extendedFilter = new ExtendedRoomFilter() 
@@ -73,6 +82,12 @@ namespace Doma
                 }
             };
             ApplyFilter(SearchList, extendedFilter);
+        }
+
+        private void SetParamsToRoom(SearchRoomFilter filter, RoomViewModel room)
+        {
+            room.BookingStartDate = filter.StartDate;
+            room.BookingEndDate = filter.EndDate;
         }
 
 
@@ -126,7 +141,7 @@ namespace Doma
             RoomViewModel room = e.Item as RoomViewModel;
             HotelViewModel hotel = await hotelService.Get(room.Hotel.Id);
 
-            await Navigation.PushAsync(new HotelDetailsPage(hotel, room, baseFilter, likeService, userProvider));
+            await Navigation.PushAsync(new HotelDetailsPage(hotel, room, baseFilter, likeService, bookingService, notificationService, userProvider));
         }
 
         private async void Filter_Clicked(object sender, EventArgs e)

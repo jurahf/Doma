@@ -27,6 +27,8 @@ namespace Doma
         {
             try
             {
+                lblError.IsVisible = false;
+                lblSuccess.IsVisible = false;
                 string email = tbLogin.Text;
                 string password = tbPassword.Text;
                 string passwordConfirm = tbPasswordConfirm.Text;

@@ -25,6 +25,8 @@ namespace Doma
                     serviceProvider.GetService<ICityRemoteService>(),
                     serviceProvider.GetService<IHotelRemoteService>(),
                     serviceProvider.GetService<ILikeRemoteService>(),
+                    serviceProvider.GetService<IBookingRemoteService>(),
+                    serviceProvider.GetService<INotificationRemoteService>(),
                     serviceProvider.GetService<ICurrentUserProvider>()
                     ));
             searchPages.Title = "Поиск";
@@ -37,7 +39,9 @@ namespace Doma
                     serviceProvider.GetService<ICurrentUserProvider>(),
                     serviceProvider.GetService<ILikeRemoteService>(),
                     serviceProvider.GetService<IHotelRemoteService>(),
-                    serviceProvider.GetService<IRoomRemoteService>()
+                    serviceProvider.GetService<IRoomRemoteService>(),
+                    serviceProvider.GetService<IBookingRemoteService>(),
+                    serviceProvider.GetService<INotificationRemoteService>()
                 ));
             faivoritesPages.Title = "Избранное";
             faivoritesPages.IconImageSource = "favorite.png";

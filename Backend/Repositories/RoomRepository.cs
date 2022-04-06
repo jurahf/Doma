@@ -30,6 +30,7 @@ namespace Repositories
                 .Include(x => x.Category)
                 .Include(x => x.Photos)
                 .Include(x => x.Commodities)
+                    .ThenInclude(x => x.Commodity)
                 .Include(x => x.Bookings)
                 .Include(x => x.Likes);
         }

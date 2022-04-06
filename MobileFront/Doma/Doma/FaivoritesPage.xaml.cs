@@ -17,18 +17,24 @@ namespace Doma
         private readonly ILikeRemoteService likeService;
         private readonly IHotelRemoteService hotelService;
         private readonly IRoomRemoteService roomService;
+        private readonly IBookingRemoteService bookingService;
+        private readonly INotificationRemoteService notificationService;
         private List<RoomViewModel> rooms = new List<RoomViewModel>();
 
         public FaivoritesPage(
             ICurrentUserProvider userProvider, 
             ILikeRemoteService likeService,
             IHotelRemoteService hotelService,
-            IRoomRemoteService roomService)
+            IRoomRemoteService roomService,
+            IBookingRemoteService bookingService,
+            INotificationRemoteService notificationService)
             : base(userProvider)
         {
             this.likeService = likeService;
             this.hotelService = hotelService;
             this.roomService = roomService;
+            this.bookingService = bookingService;
+            this.notificationService = notificationService;
 
             InitializeComponent();
         }
@@ -58,7 +64,7 @@ namespace Doma
             RoomViewModel room = await roomService.Get((e.Item as RoomViewModel).Id);
             HotelViewModel hotel = await hotelService.Get(room.Hotel.Id);
 
-            await Navigation.PushAsync(new HotelDetailsPage(hotel, room, null, likeService, userProvider));
+            await Navigation.PushAsync(new HotelDetailsPage(hotel, room, null, likeService, bookingService, notificationService, userProvider));
         }
     }
 }

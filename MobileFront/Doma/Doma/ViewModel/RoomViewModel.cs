@@ -15,6 +15,40 @@ namespace ViewModel
             Likes = new List<LikeViewModel>();
         }
 
+        #region Поля не из базы, а вводимые на форме (может надо в другой класс)
+
+        public DateTime? BookingStartDate { get; set; }
+
+        public DateTime? BookingEndDate { get; set; }
+
+        public int BookingFreePlaces
+        {
+            get
+            {
+                return FreeCount(BookingStartDate, BookingEndDate);
+            }
+        }
+
+        public int BookingNightsCount
+        {
+            get
+            {
+                return (BookingEndDate - BookingStartDate)?.Days ?? 0;
+            }
+        }
+
+        public float BookingAllTimeCost 
+        {
+            get
+            {
+                return CostPerDay * Math.Max(BookingNightsCount, 1);
+            }
+        }
+
+
+        #endregion
+
+
         public int Id { get; set; }
 
         public int Count { get; set; }

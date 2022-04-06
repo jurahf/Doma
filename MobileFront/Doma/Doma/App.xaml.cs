@@ -36,6 +36,7 @@ namespace Doma
             services.AddSingleton<IRoomRemoteService, RoomRemoteService>();
             services.AddSingleton<IHotelRemoteService, HotelRemoteService>();
             services.AddSingleton<ILikeRemoteService, LikeRemoteService>();
+            services.AddSingleton<INotificationRemoteService, NotificationRemoteService>();
 
             serviceProvider = services.BuildServiceProvider();
         }

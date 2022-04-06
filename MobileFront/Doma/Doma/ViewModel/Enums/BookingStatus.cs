@@ -12,6 +12,7 @@ namespace ViewModel.Enums
         ClientCancel,
         PayFrozen,
         ClientCome,
-        PaySend
+        PaySend,
+        Done
     }
 }

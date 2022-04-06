@@ -12,6 +12,7 @@ namespace StoredModel.Enums
         ClientCancel,
         PayFrozen,
         ClientCome,
-        PaySend
+        PaySend,
+        Done
     }
 }

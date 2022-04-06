@@ -30,5 +30,11 @@ namespace Repositories
                 .Include(x => x.Options)
                     .ThenInclude(x => x.HotelOption);
         }
+
+        protected override void ReLoadRelations(Booking entity)
+        {
+            entity.Client = null;
+            entity.Room = null;
+        }
     }
 }

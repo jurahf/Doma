@@ -28,7 +28,7 @@
                             <StackLayout Orientation="Horizontal">
                                 <StackLayout>
                                     <Image BackgroundColor="LightGray" Source="{Binding MainPhoto}" HeightRequest="80" WidthRequest="100"></Image>
-                                    <Label HorizontalOptions="CenterAndExpand" FontSize="16" TextColor="Black" Text="{Binding CostPerDay, StringFormat='{0} р/д'}"></Label>
+                                    <Label HorizontalOptions="CenterAndExpand" FontSize="16" TextColor="Black" Text="{Binding BookingAllTimeCost, StringFormat='{0} р'}"></Label>
                                 </StackLayout>
                                 <StackLayout>
                                     <Label Text="{Binding Hotel.Name}" />

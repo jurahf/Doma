@@ -22,6 +22,8 @@ namespace Doma
         private readonly IRoomRemoteService roomService;
         private readonly IHotelRemoteService hotelService;
         private readonly ILikeRemoteService likeService;
+        private readonly IBookingRemoteService bookingService;
+        private readonly INotificationRemoteService notificationService;
         private readonly ICurrentUserProvider userProvider;
 
         private CityViewModel selectedCity = null;
@@ -36,12 +38,16 @@ namespace Doma
             ICityRemoteService cityService,
             IHotelRemoteService hotelService,
             ILikeRemoteService likeService,
+            IBookingRemoteService bookingService,
+            INotificationRemoteService notificationService,
             ICurrentUserProvider userProvider)
         {
             this.roomService = roomService;
             this.cityService = cityService;
             this.hotelService = hotelService;
             this.likeService = likeService;
+            this.bookingService = bookingService;
+            this.notificationService = notificationService;
             this.userProvider = userProvider;
 
             InitializeComponent();
@@ -295,7 +301,7 @@ namespace Doma
             };
 
             List<RoomViewModel> results = await roomService.SearchRooms(filter);
-            await this.Navigation.PushAsync(new SearchResultListPage(results, filter, hotelService, likeService, userProvider));
+            await this.Navigation.PushAsync(new SearchResultListPage(results, filter, hotelService, likeService, bookingService, notificationService, userProvider));
         }
     }
 }

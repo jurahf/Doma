@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Doma.HotelDetailsPage"
-             x:Name="PageInstance">
+             x:Name="PageInstance"
+             xmlns:controls="clr-namespace:Doma">
     <ContentPage.Content>
 
         <ScrollView>
@@ -85,8 +86,17 @@
                                         <Label TextColor="LimeGreen" Text="{Binding CommoditiesInline}"></Label>
 
                                         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                            <Label VerticalOptions="Center" TextColor="Black" FontSize="18" Text="{Binding CostPerDay, StringFormat='{0} р/д'}"></Label>
-                                            <Button VerticalOptions="Center" HorizontalOptions="End" Text="Забронировать" TextColor="White" BackgroundColor="Black"></Button>
+                                            <Label VerticalOptions="Center" TextColor="Black" FontSize="18" Text="{Binding BookingNightsCount, StringFormat='{0} ночей'}"></Label>
+                                            <Label VerticalOptions="Center" TextColor="Black" FontSize="18" Text="{Binding BookingAllTimeCost, StringFormat='{0} р'}"></Label>
+                                            <Button 
+                                                VerticalOptions="Center" 
+                                                HorizontalOptions="End"
+                                                Text="Забронировать"
+                                                TextColor="White"
+                                                BackgroundColor="Black"
+                                                Clicked="Button_Clicked"
+                                                controls:TagAttProp.Tag="{Binding Id}">
+                                            </Button>
                                         </StackLayout>
                                     </StackLayout>
 
